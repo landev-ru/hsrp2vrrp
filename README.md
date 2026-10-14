@@ -2,6 +2,7 @@
   <img src="https://raw.githubusercontent.com/landev-ru/hsrp2vrrp/main/logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" width="480"/>
 </p>
 
+![Компьютер](https://raw.githubusercontent.com/landev-ru/hsrp2vrrp/main/logo.png)
 
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.6%2B-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
