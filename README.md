@@ -1,5 +1,4 @@
-# hsrp2vrrp
-# 🔄 HSRP → VRRP Migration Toolkit
+# 🔄 hsrp2vrrp — HSRP → VRRP Migration Toolkit
 
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.6%2B-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
@@ -10,7 +9,7 @@
 
 <p align="center">
   <b>Автоматическая генерация команд для плавного перехода с HSRP на VRRPv2 / VRRPv3 на двух ядрах сети.</b><br/>
-  Минимизация простоя, последовательное применение, поддержка аутентификации.
+  Последовательное применение, минимизация разрыва, поддержка аутентификации.
 </p>
 
 ---
@@ -57,16 +56,29 @@
 | Preempt delay `180` сек | ✅ | ✅ |
 | Приоритеты `110` / `105` | ✅ | ✅ |
 
+- **Автопарсинг HSRP** — автоматически находит VLAN и группы HSRP в конфигах обоих ядер. Не нужно вручную выписывать VIP и приоритеты.
+- **Определение ролей** — ядро с большим приоритетом HSRP считается active. При равенстве сравниваются IP-адреса интерфейсов.
+- **Последовательный вывод** — для каждого VLAN команды выводятся в порядке standby → active. Это минимизирует простой хостов.
+- **Аутентификация VRRPv2** — интерактивный выбор: без аутентификации, текстовая или MD5. Единый ключ применяется к обоим ядрам.
+- **VRRPv3 из коробки** — глобальная команда `fhrp version vrrp v3` и настройка `address-family ipv4`.
+- **OSPF cost** — автоматическая установка стоимости OSPF: 1 для active, 10 для standby.
+
 ---
 
 ## 📦 Требования
 
-- **Python** `3.6+`
+- **Python** `3.6+` (команда `python3`)
 - Два текстовых файла с конфигурациями ядер:
   - `core1.txt`
   - `core2.txt`
 - Оборудование Cisco с поддержкой VRRP:
   - для VRRPv3 — команда `fhrp version vrrp v3` в глобальном режиме.
+
+> ℹ️ В современных Linux-дистрибутивах (Ubuntu 20.04+, Debian 11+) команда `python` отсутствует. Используйте `python3`. При необходимости можно установить псевдоним:
+>
+> ```bash
+> sudo apt update && sudo apt install python-is-python3
+> ```
 
 ---
 
@@ -74,17 +86,28 @@
 
 ```bash
 # Клонируем репозиторий
-git clone https://github.com/your-org/hsrp-to-vrrp.git
-cd hsrp-to-vrrp
+git clone https://github.com/landev-ru/hsrp2vrrp.git
+cd hsrp2vrrp
 
 # VRRPv2 (с выбором аутентификации)
-python migrate_to_vrrp2.py core1.txt core2.txt
+python3 migrate_to_vrrp2.py core1.txt core2.txt
 
 # VRRPv3 (без аутентификации)
-python migrate_to_vrrp3.py core1.txt core2.txt
+python3 migrate_to_vrrp3.py core1.txt core2.txt
 ```
 
 На выходе появится файл `migrate_vrrp2_sequential.cfg` или `migrate_vrrp3_sequential.cfg` с готовыми командами.
+
+### Альтернативный запуск (без вызова интерпретатора)
+
+Скрипты содержат shebang `#!/usr/bin/env python3`, поэтому их можно сделать исполняемыми и запускать напрямую:
+
+```bash
+chmod +x migrate_to_vrrp2.py migrate_to_vrrp3.py
+
+./migrate_to_vrrp2.py core1.txt core2.txt
+./migrate_to_vrrp3.py core1.txt core2.txt
+```
 
 ---
 
@@ -128,16 +151,30 @@ fhrp version vrrp v3
 
 ### 5. Экспорт конфигураций
 
-Сохраните вывод `show running-config` обоих ядер в файлы `core1.txt` и `core2.txt`.
+Сохраните вывод `show running-config` обоих ядер в файлы `core1.txt` и `core2.txt`:
+
+```bash
+ssh admin@core1 "show run" > core1.txt
+ssh admin@core2 "show run" > core2.txt
+```
+
+Либо вручную с консоли:
+
+```cisco
+show running-config
+! скопировать вывод в файл core1.txt / core2.txt
+```
 
 ---
 
 ## 📘 Использование
 
+Два скрипта — два сценария. Выбирайте под свою задачу.
+
 ### 🔹 VRRPv2 — `migrate_to_vrrp2.py`
 
 ```bash
-python migrate_to_vrrp2.py core1.txt core2.txt
+python3 migrate_to_vrrp2.py core1.txt core2.txt
 ```
 
 Скрипт интерактивно запросит тип аутентификации:
@@ -173,7 +210,7 @@ interface VlanX
 ### 🔹 VRRPv3 — `migrate_to_vrrp3.py`
 
 ```bash
-python migrate_to_vrrp3.py core1.txt core2.txt
+python3 migrate_to_vrrp3.py core1.txt core2.txt
 ```
 
 Аутентификация **не используется** — Cisco не поддерживает её в VRRPv3 (RFC 5798).
@@ -248,13 +285,14 @@ interface Vlan2
 ## 📁 Структура проекта
 
 ```text
-hsrp-to-vrrp/
+hsrp2vrrp/
 ├── migrate_to_vrrp2.py          # Скрипт для VRRPv2
 ├── migrate_to_vrrp3.py          # Скрипт для VRRPv3
 ├── core1.txt                    # Пример конфига первого ядра
 ├── core2.txt                    # Пример конфига второго ядра
 ├── migrate_vrrp2_sequential.cfg # Результат (генерируется)
 ├── migrate_vrrp3_sequential.cfg # Результат (генерируется)
+├── index.html                   # Страница проекта (GitHub Pages)
 └── README.md
 ```
 
@@ -279,11 +317,29 @@ hsrp-to-vrrp/
 > Установлена задержка `180` секунд для предотвращения частых переключений ролей.
 
 > ⚫ **Проверка синтаксиса**
-> Синтаксис VRRP может отличаться в зависимости от версии IOS/IOS-XE. **Перед массовым применением протестируйте на одном VLAN.**
+> Синтаксис VRRP может отличаться в зависимости от версии IOS/IOS-XE. **Перед массовым применением протестируйте на одном VLAN**.
 
 ---
 
 ## ❓ FAQ
+
+<details>
+<summary><b>Почему команда <code>python</code> не найдена?</b></summary>
+
+В современных Linux-дистрибутивах (Ubuntu 20.04+, Debian 11+) команда `python` отсутствует. Используйте `python3`:
+
+```bash
+python3 migrate_to_vrrp2.py core1.txt core2.txt
+```
+
+Либо установите псевдоним:
+
+```bash
+sudo apt install python-is-python3
+```
+
+После этого команда `python` будет работать как `python3`.
+</details>
 
 <details>
 <summary><b>Что делать, если ключи HSRP на ядрах различались?</b></summary>
@@ -309,6 +365,27 @@ hsrp-to-vrrp/
 Технически можно, но это приведёт к длительному разрыву на всех сегментах одновременно. Рекомендуется применять **поочерёдно**, с проверкой после каждого VLAN.
 </details>
 
+<details>
+<summary><b>Как сделать скрипты исполняемыми?</b></summary>
+
+```bash
+chmod +x migrate_to_vrrp2.py migrate_to_vrrp3.py
+```
+
+Затем запускать напрямую:
+
+```bash
+./migrate_to_vrrp2.py core1.txt core2.txt
+./migrate_to_vrrp3.py core1.txt core2.txt
+```
+
+Убедитесь, что в начале скриптов есть строка:
+
+```python
+#!/usr/bin/env python3
+```
+</details>
+
 ---
 
 ## 📄 Лицензия
@@ -321,3 +398,4 @@ hsrp-to-vrrp/
 
 <p align="center">
   <i>Сделано с ❤️ для сетевых инженеров</i>
+</p>
