@@ -2,8 +2,6 @@
   <img src="https://raw.githubusercontent.com/landev-ru/hsrp2vrrp/main/logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" width="480"/>
 </p>
 
-![Компьютер](https://raw.githubusercontent.com/landev-ru/hsrp2vrrp/main/logo.png)
-
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.6%2B-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
   <img src="https://img.shields.io/badge/Cisco-IOS%20%7C%20IOS--XE-1BA0D7?style=for-the-badge&logo=cisco&logoColor=white" alt="Cisco"/>
