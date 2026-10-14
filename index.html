@@ -20,64 +20,39 @@
           },
           colors: {
             brand: {
-              50:  '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
+              50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',
+              400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',
+              800:'#1e40af',900:'#1e3a8a',
             },
-            surface: {
-              light: '#ffffff',
-              dark:  '#0a0a0a',
-            },
+            surface: { light:'#ffffff', dark:'#0a0a0a' },
           },
         },
       },
     };
   </script>
+  <script>
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
   <style>
     html { font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11'; }
     body { font-family: 'Inter', sans-serif; }
-    .code-block {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8125rem;
-      line-height: 1.6;
-    }
-    .glow {
-      box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.25);
-    }
+    .code-block { font-family: 'JetBrains Mono', monospace; font-size: 0.8125rem; line-height: 1.6; }
+    .glow { box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.25); }
     .gradient-text {
       background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .badge-shield {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.125rem 0.5rem;
-      border-radius: 9999px;
-      font-size: 0.6875rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.125rem 0.5rem; border-radius: 9999px;
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.02em;
     }
-    .step-connector {
-      position: absolute;
-      left: 1.25rem;
-      top: 2.5rem;
-      bottom: -0.5rem;
-      width: 2px;
-      background: linear-gradient(to bottom, #3b82f6, transparent);
-    }
-    @media (min-width: 768px) {
-      .step-connector { left: 1.5rem; }
-    }
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] .chev { transform: rotate(180deg); }
+    .chev { transition: transform 0.2s ease; }
   </style>
 </head>
 
@@ -88,16 +63,19 @@
     <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5 group">
         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg shadow-brand-500/20 group-hover:shadow-brand-500/40 transition-shadow">
-          <svg class="w-4.5 h-4.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
           </svg>
         </div>
         <span class="font-bold text-lg tracking-tight">hsrp<span class="text-brand-500">2</span>vrrp</span>
       </a>
       <div class="flex items-center gap-1 sm:gap-2">
-        <a href="#features" class="hidden sm:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Возможности</a>
-        <a href="#how-it-works" class="hidden sm:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Как работает</a>
-        <a href="#usage" class="hidden sm:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Использование</a>
+        <a href="#about" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">О проекте</a>
+        <a href="#features" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Возможности</a>
+        <a href="#quickstart" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Старт</a>
+        <a href="#prepare" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Подготовка</a>
+        <a href="#usage" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Использование</a>
+        <a href="#faq" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">FAQ</a>
         <a href="https://github.com/landev-ru/hsrp2vrrp" target="_blank" rel="noopener"
            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold hover:opacity-90 transition-opacity">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.4.6.1.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.73.08-.73 1.22.08 1.86 1.25 1.86 1.25 1.08 1.85 2.83 1.3 3.52 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.3.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.28-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.92 1.24 3.22 0 4.6-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.3c0 .32.22.7.82.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -109,7 +87,6 @@
 
   <!-- ============ HERO ============ -->
   <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-grid-slate-100 dark:bg-grid-slate-800/[0.04] [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none"></div>
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-brand-500/10 dark:bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 md:pt-28 md:pb-24">
@@ -130,7 +107,6 @@
           </span>
         </div>
 
-        <!-- Title -->
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-5">
           Миграция <span class="gradient-text">HSRP → VRRP</span><br/>
           без простоя
@@ -141,9 +117,8 @@
           поддержка аутентификации.
         </p>
 
-        <!-- CTA -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="#usage" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-lg shadow-brand-600/25 transition-all hover:shadow-brand-600/40 hover:-translate-y-0.5">
+          <a href="#quickstart" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-lg shadow-brand-600/25 transition-all hover:shadow-brand-600/40 hover:-translate-y-0.5">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             Быстрый старт
           </a>
@@ -179,7 +154,6 @@
               <div class="text-gray-100 pl-4">preempt delay minimum 180</div>
               <div class="text-gray-100 pl-2">exit</div>
               <div class="text-gray-100 pl-2">ip ospf cost 10</div>
-              <div class="text-gray-500 mt-2">... (сгенерировано 22 VLAN)</div>
               <div class="mt-2 text-emerald-400">✓ Сохранено в migrate_vrrp3_sequential.cfg</div>
             </div>
           </div>
@@ -188,16 +162,79 @@
     </div>
   </section>
 
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="py-20 md:py-24 border-t border-gray-200/60 dark:border-white/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">🎯 О проекте</h2>
+      </div>
+      <div class="text-gray-600 dark:text-gray-400 leading-relaxed space-y-5 text-center text-lg">
+        <p>
+          Набор из двух Python-скриптов, которые анализируют конфигурации двух ядер сети
+          (active / standby), находят общие VLAN и группы HSRP и генерируют готовую
+          последовательность команд для перевода резервирования шлюза на
+          <strong class="text-gray-900 dark:text-white">VRRPv2</strong> или
+          <strong class="text-gray-900 dark:text-white">VRRPv3</strong>.
+        </p>
+        <p>
+          Скрипты определяют, какое ядро является активным (по приоритету HSRP,
+          а при равенстве — по IP-адресу интерфейса).
+        </p>
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+        <div class="w-full sm:w-auto px-6 py-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-center">
+          <div class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mb-1">Шаг 1</div>
+          <div class="font-bold text-emerald-900 dark:text-emerald-300">🟢 Standby-ядро</div>
+        </div>
+        <svg class="w-6 h-6 text-gray-400 rotate-90 sm:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+        <div class="w-full sm:w-auto px-6 py-4 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-center">
+          <div class="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">Шаг 2</div>
+          <div class="font-bold text-blue-900 dark:text-blue-300">🔵 Active-ядро</div>
+        </div>
+      </div>
+      <p class="mt-5 text-center text-sm text-gray-500 dark:text-gray-400">
+        Такой порядок позволяет минимизировать простой хостов в сегменте.
+      </p>
+    </div>
+  </section>
+
   <!-- ============ FEATURES ============ -->
-  <section id="features" class="py-20 md:py-28 border-t border-gray-200/60 dark:border-white/10">
+  <section id="features" class="py-20 md:py-28 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-14">
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Возможности</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">✨ Возможности</h2>
         <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Всё необходимое для безопасной миграции FHRP на двух ядрах сети.</p>
       </div>
 
+      <!-- Comparison table -->
+      <div class="mb-12 overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02]">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 dark:bg-white/[0.03] border-b border-gray-200 dark:border-white/10">
+              <th class="px-5 py-3.5 text-left font-semibold">Возможность</th>
+              <th class="px-5 py-3.5 text-center font-semibold w-28">VRRPv2</th>
+              <th class="px-5 py-3.5 text-center font-semibold w-28">VRRPv3</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-white/5">
+            <tr><td class="px-5 py-3">Автопарсинг конфигов HSRP</td><td class="text-center text-emerald-500 text-lg">✅</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+            <tr><td class="px-5 py-3">Определение active/standby ядра</td><td class="text-center text-emerald-500 text-lg">✅</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+            <tr><td class="px-5 py-3">Последовательный вывод (standby → active)</td><td class="text-center text-emerald-500 text-lg">✅</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+            <tr><td class="px-5 py-3">Выбор аутентификации (text / md5)</td><td class="text-center text-emerald-500 text-lg">✅</td><td class="text-center text-gray-400">❌ <span class="text-xs italic">Cisco не поддерживает</span></td></tr>
+            <tr><td class="px-5 py-3">Глобальная команда <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">fhrp version vrrp v3</code></td><td class="text-center text-gray-400">—</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+            <tr><td class="px-5 py-3">Настройка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">address-family ipv4</code></td><td class="text-center text-gray-400">—</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+            <tr><td class="px-5 py-3">Настройка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">ip ospf cost</code></td><td class="text-center text-emerald-500 text-lg">✅</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+            <tr><td class="px-5 py-3">Preempt delay <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">180</code> сек</td><td class="text-center text-emerald-500 text-lg">✅</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+            <tr><td class="px-5 py-3">Приоритеты <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">110</code> / <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">105</code></td><td class="text-center text-emerald-500 text-lg">✅</td><td class="text-center text-emerald-500 text-lg">✅</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Feature cards -->
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Feature 1 -->
         <div class="group p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
           <div class="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <svg class="w-5 h-5 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
@@ -206,7 +243,6 @@
           <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Автоматически находит VLAN и группы HSRP в конфигах обоих ядер. Не нужно вручную выписывать VIP и приоритеты.</p>
         </div>
 
-        <!-- Feature 2 -->
         <div class="group p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
           <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
@@ -215,7 +251,6 @@
           <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Ядро с большим приоритетом HSRP считается active. При равенстве сравниваются IP-адреса интерфейсов.</p>
         </div>
 
-        <!-- Feature 3 -->
         <div class="group p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
           <div class="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
@@ -224,7 +259,6 @@
           <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Для каждого VLAN команды выводятся в порядке <strong>standby → active</strong>. Это минимизирует простой хостов.</p>
         </div>
 
-        <!-- Feature 4 -->
         <div class="group p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
           <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -233,7 +267,6 @@
           <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Интерактивный выбор: без аутентификации, текстовая или MD5. Единый ключ применяется к обоим ядрам.</p>
         </div>
 
-        <!-- Feature 5 -->
         <div class="group p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
           <div class="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <svg class="w-5 h-5 text-cyan-600 dark:text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -242,7 +275,6 @@
           <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Глобальная команда <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">fhrp version vrrp v3</code> и настройка address-family ipv4.</p>
         </div>
 
-        <!-- Feature 6 -->
         <div class="group p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
           <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <svg class="w-5 h-5 text-rose-600 dark:text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
@@ -254,93 +286,164 @@
     </div>
   </section>
 
-  <!-- ============ HOW IT WORKS ============ -->
-  <section id="how-it-works" class="py-20 md:py-28 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Как это работает</h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Три шага от конфигов HSRP до готового файла команд VRRP.</p>
+  <!-- ============ QUICKSTART ============ -->
+  <section id="quickstart" class="py-20 md:py-28">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">🚀 Быстрый старт</h2>
+        <p class="text-gray-600 dark:text-gray-400">Клонируйте и запустите за пару минут.</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6 relative">
-        <!-- Step 1 -->
-        <div class="relative p-6 rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="w-9 h-9 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center shadow-lg shadow-brand-600/30">1</span>
-            <h3 class="font-bold text-lg">Экспорт конфигов</h3>
+      <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
+        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+          <span class="ml-3 text-xs text-gray-500 font-mono">bash</span>
+        </div>
+        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># Клонируем репозиторий</span>
+<span class="text-emerald-400">git</span> clone https://github.com/landev-ru/hsrp2vrrp.git
+<span class="text-emerald-400">cd</span> hsrp2vrrp
+
+<span class="text-gray-500"># VRRPv2 (с выбором аутентификации)</span>
+<span class="text-emerald-400">python3</span> migrate_to_vrrp2.py core1.txt core2.txt
+
+<span class="text-gray-500"># VRRPv3 (без аутентификации)</span>
+<span class="text-emerald-400">python3</span> migrate_to_vrrp3.py core1.txt core2.txt</code></pre>
+      </div>
+
+      <p class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+        На выходе появится файл <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_vrrp2_sequential.cfg</code>
+        или <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_vrrp3_sequential.cfg</code> с готовыми командами.
+      </p>
+
+      <h3 class="mt-10 text-xl font-bold mb-4">Альтернативный запуск (без вызова интерпретатора)</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Скрипты содержат shebang <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">#!/usr/bin/env python3</code>, поэтому их можно сделать исполняемыми и запускать напрямую:</p>
+
+      <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
+        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+          <span class="ml-3 text-xs text-gray-500 font-mono">bash</span>
+        </div>
+        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code><span class="text-emerald-400">chmod</span> +x migrate_to_vrrp2.py migrate_to_vrrp3.py
+
+<span class="text-emerald-400">./migrate_to_vrrp2.py</span> core1.txt core2.txt
+<span class="text-emerald-400">./migrate_to_vrrp3.py</span> core1.txt core2.txt</code></pre>
+      </div>
+
+      <!-- Requirements -->
+      <div class="mt-10 p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02]">
+        <h3 class="font-bold text-lg mb-4">📦 Требования</h3>
+        <ul class="space-y-2.5 text-sm text-gray-700 dark:text-gray-300">
+          <li class="flex items-start gap-2.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 flex-shrink-0"></span>
+            <span><strong>Python</strong> <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">3.6+</code> (команда <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">python3</code>)</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 flex-shrink-0"></span>
+            <span>Два текстовых файла с конфигурациями ядер: <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">core1.txt</code>, <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">core2.txt</code></span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 flex-shrink-0"></span>
+            <span>Оборудование Cisco с поддержкой VRRP. Для VRRPv3 — команда <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">fhrp version vrrp v3</code></span>
+          </li>
+        </ul>
+        <div class="mt-5 p-4 rounded-lg bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20">
+          <p class="text-sm text-blue-800 dark:text-blue-300">
+            ℹ️ В современных Linux-дистрибутивах (Ubuntu 20.04+, Debian 11+) команда <code class="text-xs font-mono bg-blue-100 dark:bg-blue-500/15 px-1 rounded">python</code> отсутствует. Используйте <code class="text-xs font-mono bg-blue-100 dark:bg-blue-500/15 px-1 rounded">python3</code>. При необходимости можно установить псевдоним:
+          </p>
+          <div class="mt-3 rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">
+            <span class="text-emerald-400">sudo</span> apt update &amp;&amp; <span class="text-emerald-400">sudo</span> apt install python-is-python3
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Сохраните <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show running-config</code> обоих ядер в файлы <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">core1.txt</code> и <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">core2.txt</code>.</p>
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">
-            <span class="text-emerald-400">$</span> ssh admin@core1 "show run" &gt; core1.txt<br/>
-            <span class="text-emerald-400">$</span> ssh admin@core2 "show run" &gt; core2.txt
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PREPARE ============ -->
+  <section id="prepare" class="py-20 md:py-28 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">🛠 Подготовка</h2>
+        <p class="text-gray-600 dark:text-gray-400">Перед началом работ обязательно выполните следующие шаги.</p>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Step 1 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">1</span>
+            <h3 class="font-bold">Резервное копирование конфигураций</h3>
+          </div>
+          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto">
+            copy running-config startup-config<br/>
+            copy startup-config flash:backup_core1.cfg<br/>
+            copy startup-config flash:backup_core2.cfg
           </div>
         </div>
 
         <!-- Step 2 -->
-        <div class="relative p-6 rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10">
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
           <div class="flex items-center gap-3 mb-4">
-            <span class="w-9 h-9 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center shadow-lg shadow-brand-600/30">2</span>
-            <h3 class="font-bold text-lg">Запуск скрипта</h3>
+            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">2</span>
+            <h3 class="font-bold">Проверка поддержки VRRP</h3>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Выберите VRRPv2 или VRRPv3. Для VRRPv2 скрипт запросит тип аутентификации и ключ.</p>
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">
-            <span class="text-emerald-400">$</span> python3 migrate_to_vrrp2.py core1.txt core2.txt<br/>
-            <span class="text-emerald-400">$</span> python3 migrate_to_vrrp3.py core1.txt core2.txt
+          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto mb-3">
+            show vrrp<br/>
+            show vrrp brief
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Для VRRPv3 убедитесь, что доступна команда:</p>
+          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto mt-2">
+            fhrp version vrrp v3
           </div>
         </div>
 
         <!-- Step 3 -->
-        <div class="relative p-6 rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10">
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
           <div class="flex items-center gap-3 mb-4">
-            <span class="w-9 h-9 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center shadow-lg shadow-brand-600/30">3</span>
-            <h3 class="font-bold text-lg">Применение</h3>
+            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">3</span>
+            <h3 class="font-bold">Проверка ACL</h3>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Откройте сгенерированный <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">.cfg</code> и применяйте блоки поочерёдно: сначала standby, затем active.</p>
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">
-            <span class="text-brand-400"># Standby core</span><br/>
-            configure terminal<br/>
-            ... вставить блок ...<br/>
-            end<br/>
-            <span class="text-gray-500">! проверка: show vrrp brief</span>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Убедитесь, что списки доступа на интерфейсах пропускают служебные пакеты VRRP:</p>
+          <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-white/10">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50 dark:bg-white/[0.03]">
+                <tr>
+                  <th class="px-4 py-2.5 text-left font-semibold">Протокол</th>
+                  <th class="px-4 py-2.5 text-left font-semibold">IP-протокол</th>
+                  <th class="px-4 py-2.5 text-left font-semibold">Multicast-адрес</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 dark:divide-white/5">
+                <tr><td class="px-4 py-2.5">VRRPv2</td><td class="px-4 py-2.5">112</td><td class="px-4 py-2.5 font-mono text-xs">224.0.0.18</td></tr>
+                <tr><td class="px-4 py-2.5">VRRPv3</td><td class="px-4 py-2.5">112</td><td class="px-4 py-2.5 font-mono text-xs">224.0.0.18, ff02::12</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
 
-      <!-- Diagram -->
-      <div class="mt-14 max-w-3xl mx-auto">
-        <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10">
-          <h3 class="font-bold text-center mb-6 text-lg">Схема миграции</h3>
-          <svg viewBox="0 0 600 280" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
-            <!-- Core 1 (Active) -->
-            <rect x="60" y="40" width="160" height="80" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" class="dark:fill-blue-500/10 dark:stroke-blue-400"/>
-            <text x="140" y="72" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#1e40af" class="dark:fill-blue-300">Core 1 (Active)</text>
-            <text x="140" y="92" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#6b7280" class="dark:fill-gray-400">10.80.68.2</text>
-            <text x="140" y="108" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6" class="dark:fill-blue-400">HSRP priority 105</text>
+        <!-- Step 4 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">4</span>
+            <h3 class="font-bold">Определение критичных сегментов</h3>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Для технологических и инфраструктурных ИУС/ИнфПАК выделите <strong>отдельное окно обслуживания</strong> — переход на VRRP вызывает кратковременный разрыв (смена виртуального MAC, обновление ARP).</p>
+        </div>
 
-            <!-- Core 2 (Standby) -->
-            <rect x="380" y="40" width="160" height="80" rx="12" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" class="dark:fill-emerald-500/10 dark:stroke-emerald-400"/>
-            <text x="460" y="72" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#166534" class="dark:fill-emerald-300">Core 2 (Standby)</text>
-            <text x="460" y="92" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#6b7280" class="dark:fill-gray-400">10.80.68.3</text>
-            <text x="460" y="108" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#22c55e" class="dark:fill-emerald-400">HSRP priority 100</text>
-
-            <!-- VIP -->
-            <rect x="230" y="180" width="140" height="56" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" class="dark:fill-amber-500/10 dark:stroke-amber-400"/>
-            <text x="300" y="204" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#92400e" class="dark:fill-amber-300">Virtual IP (VIP)</text>
-            <text x="300" y="222" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#6b7280" class="dark:fill-gray-400">10.80.68.1</text>
-
-            <!-- Arrows -->
-            <line x1="140" y1="120" x2="270" y2="180" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6 4"/>
-            <line x1="460" y1="120" x2="330" y2="180" stroke="#22c55e" stroke-width="2" stroke-dasharray="6 4"/>
-
-            <!-- Labels -->
-            <text x="180" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#6b7280" class="dark:fill-gray-500">HSRP → VRRP</text>
-            <text x="420" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#6b7280" class="dark:fill-gray-500">HSRP → VRRP</text>
-
-            <!-- Step badges -->
-            <circle cx="300" cy="20" r="14" fill="#3b82f6"/>
-            <text x="300" y="25" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="white">1</text>
-            <text x="300" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#6b7280" class="dark:fill-gray-400">Шаг 2: Core 1 → VRRP</text>
-          </svg>
+        <!-- Step 5 -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">5</span>
+            <h3 class="font-bold">Экспорт конфигураций</h3>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Сохраните вывод <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">show running-config</code> обоих ядер в файлы <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">core1.txt</code> и <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">core2.txt</code>:</p>
+          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto">
+            <span class="text-emerald-400">ssh</span> admin@core1 "show run" &gt; core1.txt<br/>
+            <span class="text-emerald-400">ssh</span> admin@core2 "show run" &gt; core2.txt
+          </div>
         </div>
       </div>
     </div>
@@ -350,7 +453,7 @@
   <section id="usage" class="py-20 md:py-28">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-14">
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Использование</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">📘 Использование</h2>
         <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Два скрипта — два сценария. Выбирайте под свою задачу.</p>
       </div>
 
@@ -363,11 +466,11 @@
                 <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               </div>
               <div>
-                <h3 class="font-bold">VRRPv2</h3>
-                <p class="text-xs text-gray-500">С аутентификацией</p>
+                <h3 class="font-bold">🔹 VRRPv2</h3>
+                <p class="text-xs text-gray-500">migrate_to_vrrp2.py</p>
               </div>
             </div>
-            <span class="badge-shield bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/20">migrate_to_vrrp2.py</span>
+            <span class="badge-shield bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/20">С аутентификацией</span>
           </div>
           <div class="p-6">
             <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs mb-5 overflow-x-auto">
@@ -379,15 +482,32 @@
               <div class="text-gray-500">Ваш выбор (1/2/3): <span class="text-brand-400">3</span></div>
               <div class="text-gray-500">Введите MD5 ключ: <span class="text-brand-400">MySecretKey</span></div>
             </div>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Формируемые команды:</p>
+
+            <div class="mb-5 overflow-hidden rounded-lg border border-gray-200 dark:border-white/10">
+              <table class="w-full text-sm">
+                <thead class="bg-gray-50 dark:bg-white/[0.03]">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-semibold w-16">Выбор</th>
+                    <th class="px-3 py-2 text-left font-semibold">Действие</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-white/5 text-gray-700 dark:text-gray-300">
+                  <tr><td class="px-3 py-2 text-center font-mono">1</td><td class="px-3 py-2">Аутентификация не добавляется</td></tr>
+                  <tr><td class="px-3 py-2 text-center font-mono">2</td><td class="px-3 py-2">Запрос текстового ключа → <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1 rounded">vrrp &lt;g&gt; authentication text &lt;key&gt;</code></td></tr>
+                  <tr><td class="px-3 py-2 text-center font-mono">3</td><td class="px-3 py-2">Запрос MD5-ключа → <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1 rounded">vrrp &lt;g&gt; authentication md5 key-string &lt;key&gt;</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Формируемые команды:</p>
             <div class="rounded-lg bg-gray-50 dark:bg-white/[0.03] p-4 code-block text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10">
               interface VlanX<br/>
               &nbsp;no standby &lt;group&gt;<br/>
               &nbsp;vrrp &lt;group&gt; ip &lt;VIP&gt;<br/>
               &nbsp;vrrp &lt;group&gt; preempt delay minimum 180<br/>
-              &nbsp;vrrp &lt;group&gt; priority 110<br/>
-              &nbsp;vrrp &lt;group&gt; authentication md5 key-string &lt;key&gt;<br/>
-              &nbsp;ip ospf cost 1
+              &nbsp;vrrp &lt;group&gt; priority 110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 105 для standby</span><br/>
+              &nbsp;vrrp &lt;group&gt; authentication ...&nbsp;&nbsp;<span class="text-gray-400">! если выбрана</span><br/>
+              &nbsp;ip ospf cost 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 10 для standby</span>
             </div>
           </div>
         </div>
@@ -400,11 +520,11 @@
                 <svg class="w-5 h-5 text-cyan-600 dark:text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <div>
-                <h3 class="font-bold">VRRPv3</h3>
-                <p class="text-xs text-gray-500">Без аутентификации</p>
+                <h3 class="font-bold">🔹 VRRPv3</h3>
+                <p class="text-xs text-gray-500">migrate_to_vrrp3.py</p>
               </div>
             </div>
-            <span class="badge-shield bg-cyan-50 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/20">migrate_to_vrrp3.py</span>
+            <span class="badge-shield bg-cyan-50 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/20">Без аутентификации</span>
           </div>
           <div class="p-6">
             <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs mb-5 overflow-x-auto">
@@ -423,7 +543,12 @@
               <div class="text-gray-100 pl-2">exit</div>
               <div class="text-gray-100 pl-2">ip ospf cost 10</div>
             </div>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">Формируемые команды:</p>
+
+            <div class="mb-5 p-3 rounded-lg bg-cyan-50 dark:bg-cyan-500/10 border border-cyan-200 dark:border-cyan-500/20 text-xs text-cyan-800 dark:text-cyan-300">
+              Аутентификация <strong>не используется</strong> — Cisco не поддерживает её в VRRPv3 (RFC 5798).
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Формируемые команды:</p>
             <div class="rounded-lg bg-gray-50 dark:bg-white/[0.03] p-4 code-block text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10">
               fhrp version vrrp v3<br/>
               !<br/>
@@ -431,30 +556,223 @@
               &nbsp;no standby &lt;group&gt;<br/>
               &nbsp;vrrp &lt;group&gt; address-family ipv4<br/>
               &nbsp;&nbsp;address &lt;VIP&gt; primary<br/>
-              &nbsp;&nbsp;priority 110<br/>
+              &nbsp;&nbsp;priority 110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 105 для standby</span><br/>
               &nbsp;&nbsp;timers advertise 5000<br/>
               &nbsp;&nbsp;preempt delay minimum 180<br/>
               &nbsp;exit<br/>
-              &nbsp;ip ospf cost 1
+              &nbsp;ip ospf cost 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 10 для standby</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Warning block -->
-      <div class="mt-8 p-5 rounded-2xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/5">
-        <div class="flex gap-3">
-          <svg class="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-          <div>
-            <p class="font-semibold text-amber-800 dark:text-amber-300 text-sm mb-1">Важно перед применением</p>
-            <ul class="text-sm text-amber-700 dark:text-amber-400/80 space-y-1 list-disc list-inside">
-              <li>VRRP использует MAC <code class="text-xs bg-amber-100 dark:bg-amber-500/10 px-1 rounded font-mono">0000.5e00.01xx</code> — ARP-таблицы хостов обновятся, возможен кратковременный разрыв.</li>
-              <li>VRRPv3 не поддерживает аутентификацию (RFC 5798). Если она критична — используйте VRRPv2.</li>
-              <li>Проверьте ACL: пакеты VRRP (IP протокол 112, multicast <code class="text-xs bg-amber-100 dark:bg-amber-500/10 px-1 rounded font-mono">224.0.0.18</code>) должны проходить.</li>
-              <li>Тестируйте синтаксис на одном VLAN перед массовым применением.</li>
-            </ul>
+      <!-- Apply order -->
+      <div class="mt-10 p-8 rounded-2xl bg-gradient-to-br from-brand-50 to-violet-50 dark:from-brand-500/5 dark:to-violet-500/5 border border-brand-100 dark:border-brand-500/20">
+        <h3 class="font-bold text-lg mb-6 text-center">🔄 Порядок применения</h3>
+        <div class="grid sm:grid-cols-4 gap-3">
+          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
+            <div class="text-2xl mb-2">1️⃣</div>
+            <div class="text-sm font-semibold">Блок Standby-ядра</div>
+          </div>
+          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
+            <div class="text-2xl mb-2">🔍</div>
+            <div class="text-sm font-semibold">Проверка: <code class="text-xs font-mono">show vrrp brief</code></div>
+          </div>
+          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
+            <div class="text-2xl mb-2">3️⃣</div>
+            <div class="text-sm font-semibold">Блок Active-ядра</div>
+          </div>
+          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
+            <div class="text-2xl mb-2">✅</div>
+            <div class="text-sm font-semibold">Проверка: <code class="text-xs font-mono">show vrrp / ping VIP</code></div>
           </div>
         </div>
+        <p class="mt-5 text-center text-sm text-gray-600 dark:text-gray-400">Только после успешной проверки переходите к следующему VLAN.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXAMPLE ============ -->
+  <section id="example" class="py-20 md:py-28 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">📋 Пример вывода</h2>
+        <p class="text-gray-600 dark:text-gray-400">Фрагмент сгенерированного файла <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_vrrp2_sequential.cfg</code></p>
+      </div>
+      <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
+        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+          <span class="ml-3 text-xs text-gray-500 font-mono">migrate_vrrp2_sequential.cfg</span>
+        </div>
+        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># ========== Vlan2 (group 2) ==========</span>
+<span class="text-gray-500"># --- Standby core (core2.txt) ---</span>
+interface Vlan2
+ no standby 2
+ vrrp 2 ip 10.80.68.1
+ vrrp 2 preempt delay minimum 180
+ vrrp 2 priority 105
+ vrrp 2 authentication md5 key-string MySecretKey
+ ip ospf cost 10
+!
+
+<span class="text-gray-500"># --- Active core (core1.txt) ---</span>
+interface Vlan2
+ no standby 2
+ vrrp 2 ip 10.80.68.1
+ vrrp 2 preempt delay minimum 180
+ vrrp 2 priority 110
+ vrrp 2 authentication md5 key-string MySecretKey
+ ip ospf cost 1
+!</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STRUCTURE ============ -->
+  <section id="structure" class="py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">📁 Структура проекта</h2>
+      </div>
+      <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
+        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code>hsrp2vrrp/
+├── <span class="text-brand-400">migrate_to_vrrp2.py</span>          <span class="text-gray-500"># Скрипт для VRRPv2</span>
+├── <span class="text-brand-400">migrate_to_vrrp3.py</span>          <span class="text-gray-500"># Скрипт для VRRPv3</span>
+├── <span class="text-gray-100">core1.txt</span>                    <span class="text-gray-500"># Пример конфига первого ядра</span>
+├── <span class="text-gray-100">core2.txt</span>                    <span class="text-gray-500"># Пример конфига второго ядра</span>
+├── <span class="text-emerald-400">migrate_vrrp2_sequential.cfg</span> <span class="text-gray-500"># Результат (генерируется)</span>
+├── <span class="text-emerald-400">migrate_vrrp3_sequential.cfg</span> <span class="text-gray-500"># Результат (генерируется)</span>
+├── <span class="text-gray-100">index.html</span>                   <span class="text-gray-500"># Страница проекта (GitHub Pages)</span>
+└── <span class="text-gray-100">README.md</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WARNINGS ============ -->
+  <section id="warnings" class="py-20 md:py-28 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">⚠️ Важные замечания</h2>
+      </div>
+      <div class="space-y-4">
+        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-red-500 border border-gray-200 dark:border-white/10">
+          <h3 class="font-bold mb-2 flex items-center gap-2">🔴 Аутентификация</h3>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
+            <li>VRRPv2 поддерживает текстовую и MD5-аутентификацию.</li>
+            <li>VRRPv3 <strong>не поддерживает</strong> аутентификацию (RFC 5798). Если она критична — используйте VRRPv2.</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-orange-500 border border-gray-200 dark:border-white/10">
+          <h3 class="font-bold mb-2">🟠 Ключи HSRP</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">В исходных конфигах ключи HSRP могут различаться. Скрипт для VRRPv2 <strong>игнорирует</strong> их и использует ключ, введённый вами вручную — единый для обоих ядер.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-yellow-500 border border-gray-200 dark:border-white/10">
+          <h3 class="font-bold mb-2">🟡 Виртуальный MAC</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">VRRP использует MAC <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">0000.5e00.01xx</code>, отличный от HSRP. Это вызовет обновление ARP-таблиц на хостах и кратковременный разрыв (несколько секунд на VLAN).</p>
+        </div>
+        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-blue-500 border border-gray-200 dark:border-white/10">
+          <h3 class="font-bold mb-2">🔵 OSPF cost</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">По умолчанию: <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">1</code> для active, <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">10</code> для standby. При необходимости скорректируйте значения в скрипте.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-violet-500 border border-gray-200 dark:border-white/10">
+          <h3 class="font-bold mb-2">🟣 Preempt delay</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Установлена задержка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">180</code> секунд для предотвращения частых переключений ролей.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-gray-500 border border-gray-200 dark:border-white/10">
+          <h3 class="font-bold mb-2">⚫ Проверка синтаксиса</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Синтаксис VRRP может отличаться в зависимости от версии IOS/IOS-XE. <strong>Перед массовым применением протестируйте на одном VLAN.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" class="py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">❓ FAQ</h2>
+      </div>
+      <div class="space-y-3">
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Почему команда <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">python</code> не найдена?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            <p class="mb-3">В современных Linux-дистрибутивах (Ubuntu 20.04+, Debian 11+) команда <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">python</code> отсутствует. Используйте <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">python3</code>:</p>
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mb-3">
+              python3 migrate_to_vrrp2.py core1.txt core2.txt
+            </div>
+            <p class="mb-3">Либо установите псевдоним:</p>
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mb-3">
+              sudo apt install python-is-python3
+            </div>
+            <p>После этого команда <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">python</code> будет работать как <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">python3</code>.</p>
+          </div>
+        </details>
+
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Что делать, если ключи HSRP на ядрах различались?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            Скрипт <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_to_vrrp2.py</code> игнорирует исходные ключи HSRP. Вы вводите единый ключ вручную, и он применяется к обоим ядрам. Это гарантирует совместимость.
+          </div>
+        </details>
+
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Почему в VRRPv3 нет аутентификации?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            Протокол VRRPv3 (RFC 5798) не предусматривает механизмов аутентификации. Если аутентификация обязательна — используйте VRRPv2.
+          </div>
+        </details>
+
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Как определить, какое ядро active, а какое standby?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            Скрипт сравнивает приоритеты HSRP (<code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">standby &lt;g&gt; priority</code>). Выше приоритет — active. При равенстве — сравниваются IP-адреса интерфейсов: больше IP = active.
+          </div>
+        </details>
+
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Можно ли применить всё сразу, не по одному VLAN?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            Технически можно, но это приведёт к длительному разрыву на всех сегментах одновременно. Рекомендуется применять <strong>поочерёдно</strong>, с проверкой после каждого VLAN.
+          </div>
+        </details>
+
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Как сделать скрипты исполняемыми?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mb-3">
+              chmod +x migrate_to_vrrp2.py migrate_to_vrrp3.py
+            </div>
+            <p class="mb-3">Затем запускать напрямую:</p>
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mb-3">
+              ./migrate_to_vrrp2.py core1.txt core2.txt<br/>
+              ./migrate_to_vrrp3.py core1.txt core2.txt
+            </div>
+            <p>Убедитесь, что в начале скриптов есть строка:</p>
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mt-3">
+              #!/usr/bin/env python3
+            </div>
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -478,6 +796,9 @@
       </div>
       <p class="mt-6 text-xs text-center text-gray-400 dark:text-gray-500">
         Скрипты предоставляются «как есть». Всегда тестируйте на стенде перед применением в production.
+      </p>
+      <p class="mt-3 text-xs text-center text-gray-400 dark:text-gray-500">
+        Сделано с ❤️ для сетевых инженеров
       </p>
     </div>
   </footer>
