@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" />
+  <img src="https://raw.githubusercontent.com/landev-ru/hsrp2vrrp/main/logo.png" alt="hsrp2vrrp" width="480"/>
 </p>
 
 
