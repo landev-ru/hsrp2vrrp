@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" width="480"/>
+  <img src="/logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" width="480"/>
 </p>
 
 
