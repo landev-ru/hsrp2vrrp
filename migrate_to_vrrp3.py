@@ -231,8 +231,7 @@ def main():
     with open('migrate_vrrp3_sequential.cfg', 'w', encoding='utf-8') as f:
         f.write(result)
 
-    print(result)
-    print('\nСохранено в migrate_vrrp3_sequential.cfg')
+    print(f'\nСохранено в migrate_vrrp3_sequential.cfg')
 
 
 if __name__ == '__main__':
