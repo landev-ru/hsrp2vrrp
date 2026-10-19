@@ -146,9 +146,9 @@
           без простоя
         </h1>
         <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8 max-w-2xl mx-auto">
-          Автоматическая генерация команд для плавного перехода с HSRP на VRRPv2 / VRRPv3
+          Универсальный лаунчер, автоматическая генерация команд для плавного перехода с HSRP на VRRPv2 / VRRPv3
           на двух ядрах сети. Последовательное применение, минимизация разрыва,
-          поддержка аутентификации и перенос track-объектов.
+          поддержка аутентификации и <strong class="text-gray-900 dark:text-white">перенос track-объектов</strong>.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -172,26 +172,21 @@
               <span class="ml-3 text-xs text-gray-500 font-mono">terminal — hsrp2vrrp</span>
             </div>
             <div class="p-4 sm:p-5 text-left code-block text-gray-300">
-              <div><span class="text-emerald-400">$</span> <span class="text-gray-100">python3 migrate_to_vrrp3.py core1.txt core2.txt</span></div>
-              <div class="mt-3 text-gray-500"># Поочередный перевод HSRP -&gt; VRRPv3 для ядра</div>
-              <div class="text-gray-500"># Порядок: сначала standby, затем active для каждого VLAN.</div>
-              <div class="mt-2 text-brand-400"># Найдено HSRP-групп: 14, будет переведено: 12, track-ов: 8</div>
-              <div class="mt-2 text-gray-500">fhrp version vrrp v3</div>
-              <div class="mt-2 text-brand-400"># ========== Vlan2 (group 2) ==========</div>
-              <div class="text-gray-500"># --- Standby core (core2.txt) ---</div>
-              <div class="text-gray-100">interface Vlan2</div>
-              <div class="text-gray-100 pl-2">no standby 2</div>
-              <div class="text-gray-100 pl-2">vrrp 2 address-family ipv4</div>
-              <div class="text-gray-100 pl-4">address 10.80.68.1 primary</div>
-              <div class="text-gray-100 pl-4">priority 105</div>
-              <div class="text-gray-100 pl-4">timers advertise 5000</div>
-              <div class="text-gray-100 pl-4">track 1 decrement 20</div>
-              <div class="text-gray-100 pl-4">preempt delay minimum 180</div>
-              <div class="text-gray-100 pl-2">exit</div>
-              <div class="text-gray-100 pl-2">ip ospf cost 10</div>
-              <div class="mt-2 text-emerald-400 flex items-center gap-1.5">
+              <div><span class="text-emerald-400">$</span> <span class="text-gray-100">python3 hsrp2vrrp.py</span></div>
+              <div class="mt-3 text-gray-500"># Баннер проекта...</div>
+              <div class="text-gray-500"># [+] core1.txt  (24531 байт)</div>
+              <div class="text-gray-500"># [+] core2.txt  (24310 байт)</div>
+              <div class="text-gray-500"># [+] VRRPv2:  migrate_to_vrrp2.py</div>
+              <div class="text-gray-500"># [+] VRRPv3:  migrate_to_vrrp3.py</div>
+              <div class="mt-2 text-brand-400"># ГЛАВНОЕ МЕНЮ</div>
+              <div class="text-gray-100">1 — Перейти на VRRPv2</div>
+              <div class="text-gray-100">2 — Перейти на VRRPv3</div>
+              <div class="text-gray-100">0 — Выход</div>
+              <div class="mt-2 text-gray-500">Ваш выбор (0/1/2): <span class="text-brand-400">2</span></div>
+              <div class="mt-3 text-gray-500"># Найдено HSRP-групп: 14, будет переведено: 12, track-ов: 8</div>
+              <div class="mt-1 text-emerald-400 flex items-center gap-1.5">
                 <iconify-icon icon="mdi:check-circle" class="text-sm"></iconify-icon>
-                Сохранено в migrate_vrrp3_sequential.cfg
+                migrate_to_vrrp3.py завершён (код 0)
               </div>
             </div>
           </div>
@@ -223,8 +218,8 @@
           в той же группе и на том же интерфейсе, где они были в HSRP.
         </p>
         <p>
-          При запуске скрипт выводит подробную статистику миграции
-          и сгенерированный конфиг.
+          В комплекте идёт <strong class="text-gray-900 dark:text-white">универсальный лаунчер hsrp2vrrp.py</strong>:
+          выводит баннер, проверяет конфиги и скрипты миграции, показывает меню выбора.
         </p>
       </div>
 
@@ -274,6 +269,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100 dark:divide-white/5">
+            <tr><td class="px-5 py-3">Универсальный лаунчер с меню</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3">Автопарсинг конфигов HSRP</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3">Определение active/standby ядра</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3">Последовательный вывод (standby → active)</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
@@ -290,6 +286,14 @@
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <iconify-icon icon="mdi:menu-open" class="text-2xl text-brand-600 dark:text-brand-400"></iconify-icon>
+          </div>
+          <h3 class="font-bold text-lg mb-1.5">Универсальный лаунчер</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">hsrp2vrrp.py</code> выводит баннер, проверяет конфиги и предлагает меню выбора VRRPv2 / VRRPv3.</p>
+        </div>
+
         <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
           <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
             <iconify-icon icon="mdi:magnify" class="text-2xl text-brand-600 dark:text-brand-400"></iconify-icon>
@@ -361,6 +365,22 @@
           <h3 class="font-bold text-lg mb-1.5">Готовый .cfg</h3>
           <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Результат сохраняется в <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">migrate_vrrpX_sequential.cfg</code>.</p>
         </div>
+
+        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <iconify-icon icon="mdi:check-decagram" class="text-2xl text-teal-600 dark:text-teal-400"></iconify-icon>
+          </div>
+          <h3 class="font-bold text-lg mb-1.5">Проверка окружения</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Лаунчер проверяет наличие <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">core1.txt</code>, <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">core2.txt</code> и скриптов миграции перед запуском.</p>
+        </div>
+
+        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <iconify-icon icon="mdi:restart" class="text-2xl text-purple-600 dark:text-purple-400"></iconify-icon>
+          </div>
+          <h3 class="font-bold text-lg mb-1.5">Возврат в меню</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">После завершения скрипта лаунчер вернёт вас в меню — удобно для повторных запусков.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -376,6 +396,7 @@
         <p class="text-gray-600 dark:text-gray-400">Клонируйте и запустите за пару минут.</p>
       </div>
 
+      <h3 class="text-xl font-bold mb-4">Способ 1 — универсальный лаунчер (рекомендуется)</h3>
       <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
         <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
           <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
@@ -387,7 +408,19 @@
 <span class="text-emerald-400">git</span> clone https://github.com/landev-ru/hsrp2vrrp.git
 <span class="text-emerald-400">cd</span> hsrp2vrrp
 
-<span class="text-gray-500"># VRRPv2 (с выбором аутентификации)</span>
+<span class="text-gray-500"># Запускаем лаунчер: покажет баннер, проверит конфиги, откроет меню</span>
+<span class="text-emerald-400">python3</span> hsrp2vrrp.py</code></pre>
+      </div>
+
+      <h3 class="mt-8 text-xl font-bold mb-4">Способ 2 — напрямую</h3>
+      <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
+        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+          <span class="ml-3 text-xs text-gray-500 font-mono">bash</span>
+        </div>
+        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># VRRPv2 (с выбором аутентификации)</span>
 <span class="text-emerald-400">python3</span> migrate_to_vrrp2.py core1.txt core2.txt
 
 <span class="text-gray-500"># VRRPv3 (без аутентификации)</span>
@@ -399,7 +432,7 @@
         или <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_vrrp3_sequential.cfg</code>.
       </p>
 
-      <h3 class="mt-8 text-xl font-bold mb-4">Альтернативный запуск</h3>
+      <h3 class="mt-8 text-xl font-bold mb-4">Альтернативный запуск (без вызова интерпретатора)</h3>
       <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
         <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
           <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
@@ -407,8 +440,9 @@
           <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
           <span class="ml-3 text-xs text-gray-500 font-mono">bash</span>
         </div>
-        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code><span class="text-emerald-400">chmod</span> +x migrate_to_vrrp2.py migrate_to_vrrp3.py
+        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code><span class="text-emerald-400">chmod</span> +x hsrp2vrrp.py migrate_to_vrrp2.py migrate_to_vrrp3.py
 
+<span class="text-emerald-400">./hsrp2vrrp.py</span>
 <span class="text-emerald-400">./migrate_to_vrrp2.py</span> core1.txt core2.txt
 <span class="text-emerald-400">./migrate_to_vrrp3.py</span> core1.txt core2.txt</code></pre>
       </div>
@@ -527,7 +561,40 @@
           <iconify-icon icon="mdi:book-open-page-variant" class="text-brand-600 dark:text-brand-400"></iconify-icon>
         </div>
         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Использование</h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Два скрипта — два сценария.</p>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Три способа: через лаунчер или напрямую каждый из скриптов.</p>
+      </div>
+
+      <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden mb-6">
+        <div class="px-6 py-5 border-b border-gray-200 dark:border-white/10 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center">
+            <iconify-icon icon="mdi:menu-open" class="text-xl text-brand-600 dark:text-brand-400"></iconify-icon>
+          </div>
+          <div>
+            <h3 class="font-bold">Универсальный лаунчер</h3>
+            <p class="text-xs text-gray-500">hsrp2vrrp.py</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs mb-4 overflow-x-auto">
+            <div><span class="text-emerald-400">$</span> python3 hsrp2vrrp.py</div>
+            <div class="mt-2 text-gray-500"># Баннер проекта...</div>
+            <div class="text-gray-500"># Проверка конфигурационных файлов ядер:</div>
+            <div class="text-gray-500">#   [+] core1.txt  (24531 байт)</div>
+            <div class="text-gray-500">#   [+] core2.txt  (24310 байт)</div>
+            <div class="text-gray-500"># Проверка наличия скриптов миграции:</div>
+            <div class="text-gray-500">#   [+] VRRPv2:  migrate_to_vrrp2.py</div>
+            <div class="text-gray-500">#   [+] VRRPv3:  migrate_to_vrrp3.py</div>
+            <div class="mt-2 text-gray-500">==============================================================</div>
+            <div class="text-gray-500">ГЛАВНОЕ МЕНЮ</div>
+            <div class="text-gray-500">==============================================================</div>
+            <div class="text-gray-100">1 — Перейти на VRRPv2  (migrate_to_vrrp2.py)</div>
+            <div class="text-gray-100">2 — Перейти на VRRPv3  (migrate_to_vrrp3.py)</div>
+            <div class="text-gray-100">0 — Выход</div>
+            <div class="text-gray-500">==============================================================</div>
+            <div class="text-gray-500">Ваш выбор (0/1/2): <span class="text-brand-400">2</span></div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Лаунчер сам подскажет команды экспорта конфигов, если их не хватает, и вернёт вас в меню после завершения скрипта.</p>
+        </div>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-6">
@@ -706,6 +773,7 @@ interface Vlan2
       </div>
       <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
         <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code>hsrp2vrrp/
+├── <span class="text-brand-400">hsrp2vrrp.py</span>                   <span class="text-gray-500"># Универсальный лаунчер (меню выбора)</span>
 ├── <span class="text-brand-400">migrate_to_vrrp2.py</span>          <span class="text-gray-500"># Скрипт для VRRPv2</span>
 ├── <span class="text-brand-400">migrate_to_vrrp3.py</span>          <span class="text-gray-500"># Скрипт для VRRPv3</span>
 ├── <span class="text-gray-100">core1.txt</span>                    <span class="text-gray-500"># Пример конфига первого ядра</span>
@@ -774,6 +842,13 @@ interface Vlan2
           </h3>
           <p class="text-sm text-gray-600 dark:text-gray-400">Задержка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">180</code> секунд для предотвращения частых переключений.</p>
         </div>
+        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-brand-500 border border-gray-200 dark:border-white/10">
+          <h3 class="font-bold mb-2 flex items-center gap-2">
+            <iconify-icon icon="mdi:menu-open" class="text-xl text-brand-500"></iconify-icon>
+            Расположение лаунчера
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400"><code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">hsrp2vrrp.py</code> ищет скрипты миграции <strong>рядом с собой</strong> (и в <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">PATH</code>). Держите все три скрипта в одной папке.</p>
+        </div>
         <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-gray-500 border border-gray-200 dark:border-white/10">
           <h3 class="font-bold mb-2 flex items-center gap-2">
             <iconify-icon icon="mdi:console" class="text-xl text-gray-500"></iconify-icon>
@@ -803,6 +878,32 @@ interface Vlan2
           <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
             <p class="mb-3">Используйте <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">python3</code> либо установите псевдоним:</p>
             <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">sudo apt install python-is-python3</div>
+          </div>
+        </details>
+
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Чем отличается запуск через <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">hsrp2vrrp.py</code> от прямого?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            Лаунчер <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">hsrp2vrrp.py</code> — удобная обёртка: выводит баннер, проверяет наличие конфигов и скриптов, показывает меню и запускает нужный скрипт через <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">subprocess</code>. Прямой запуск работает так же, но без проверки и меню. Функционально результат идентичен.
+          </div>
+        </details>
+
+        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
+          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+            <span class="font-semibold text-sm pr-4">Что делать, если лаунчер не находит конфиги?</span>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+            <p class="mb-3">Экспортируйте конфиги в текущую папку:</p>
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mb-3">
+              ssh admin@core1 "show run" &gt; core1.txt<br/>
+              ssh admin@core2 "show run" &gt; core2.txt
+            </div>
+            <p>Либо передайте пути аргументами:</p>
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mt-3">python3 hsrp2vrrp.py /path/core1.txt /path/core2.txt</div>
           </div>
         </details>
 
@@ -868,10 +969,10 @@ interface Vlan2
           </summary>
           <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
             <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mb-3">
-              chmod +x migrate_to_vrrp2.py migrate_to_vrrp3.py
+              chmod +x hsrp2vrrp.py migrate_to_vrrp2.py migrate_to_vrrp3.py
             </div>
             <p class="mb-3">Затем:</p>
-            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">./migrate_to_vrrp2.py core1.txt core2.txt</div>
+            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">./hsrp2vrrp.py</div>
           </div>
         </details>
       </div>
