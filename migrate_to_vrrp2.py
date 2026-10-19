@@ -4,10 +4,22 @@
 import re
 import sys
 def parse_config(path):
+    """Парсит конфиг IOS.
+
+    Совместимо с Python 3.6+: re.split() с zero-width lookahead
+    (например `(?=^interface\\s+)`) в 3.6 вызывает
+    ValueError: split() requires a non-empty pattern match.
+    Поэтому используем finditer + ручную нарезку.
+    """
     with open(path, encoding='utf-8') as f:
         text = f.read()
 
-    parts = re.split(r'(?=^interface\s+)', text, flags=re.M)
+    starts = [m.start() for m in re.finditer(r'^interface\s+', text, flags=re.M)]
+    parts = []
+    for i, s in enumerate(starts):
+        e = starts[i + 1] if i + 1 < len(starts) else len(text)
+        parts.append(text[s:e])
+
     interfaces = {}
 
     for part in parts:
@@ -89,7 +101,7 @@ def vrrp2_block(iface_data, group, is_active, auth_type=None, auth_key=None):
     out.append(f' vrrp {group} preempt delay minimum 180')
     out.append(f' vrrp {group} priority {priority}')
 
-    # track-и переносятся туда же, где были в HSRP (в блоке группы)
+    # track-и переносятся в тот же блок группы
     for track_spec in iface_data['standby'][group].get('tracks', []):
         out.append(f' vrrp {group} track {track_spec}')
 
