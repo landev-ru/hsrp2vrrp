@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" width="480"/>
-</p>
+<img src="https://raw.githubusercontent.com/landev-ru/hsrp2vrrp/gh-pages/logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" width="480"/>
 
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.6%2B-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
@@ -750,9 +748,7 @@ chmod +x hsrp2vrrp.py migrate_to_vrrp2.py migrate_to_vrrp3.py
 
 # 🇬🇧 English
 
-<p align="center">
-  <a href="#-русский"><img src="https://img.shields.io/badge/←_Русский-6b7280?style=for-the-badge" alt="Русский"/></a>
-</p>
+<img src="https://raw.githubusercontent.com/landev-ru/hsrp2vrrp/gh-pages/logo.png" alt="hsrp2vrrp — HSRP → VRRP Migration Toolkit" width="480"/>
 
 Toolkit for planned FHRP migration from HSRP to VRRPv2 / VRRPv3 on a pair of Cisco core switches. Full configuration analysis, active/standby role detection, track-object transfer, interactive authentication setup, and a step-by-step rollout strategy without mass downtime.
 
