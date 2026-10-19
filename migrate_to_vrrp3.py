@@ -3,14 +3,10 @@
 
 import re
 import sys
-def parse_config(path):
-    """Парсит конфиг IOS.
 
-    Совместимо с Python 3.6+: re.split() с zero-width lookahead
-    (например `(?=^interface\\s+)`) в 3.6 вызывает
-    ValueError: split() requires a non-empty pattern match.
-    Поэтому используем finditer + ручную нарезку.
-    """
+
+def parse_config(path):
+    """Парсит конфиг IOS. Совместимо с Python 3.6+."""
     with open(path, encoding='utf-8') as f:
         text = f.read()
 
@@ -100,7 +96,6 @@ def vrrp3_block(iface_data, group, is_active):
     out.append(f'  priority {priority}')
     out.append(f'  timers advertise 5000')
 
-    # track-и для VRRPv3 размещаются внутри address-family ipv4
     for track_spec in iface_data['standby'][group].get('tracks', []):
         out.append(f'  track {track_spec}')
 
@@ -140,6 +135,12 @@ def print_statistics(cfg1, cfg2, common, file1, file2):
     only_in_1 = set(cfg1) - set(cfg2)
     only_in_2 = set(cfg2) - set(cfg1)
 
+    def _short(ifaces):
+        s = sorted(ifaces)
+        if len(s) <= 5:
+            return ", ".join(s)
+        return ", ".join(s[:5]) + f" ... и ещё {len(s)-5}"
+
     print()
     print('=' * 70)
     print('  СТАТИСТИКА')
@@ -153,10 +154,11 @@ def print_statistics(cfg1, cfg2, common, file1, file2):
     print(f'  Track-ов будет перенесено:           {tracks_total}')
     if skipped:
         print(f'  Пропущено (нет VIP):                 {len(skipped)}')
+    
     if only_in_1:
-        print(f'  Только в {file1}: {", ".join(sorted(only_in_1))}')
+        print(f'  Только в {file1}: {len(only_in_1)} шт. ({_short(only_in_1)})')
     if only_in_2:
-        print(f'  Только в {file2}: {", ".join(sorted(only_in_2))}')
+        print(f'  Только в {file2}: {len(only_in_2)} шт. ({_short(only_in_2)})')
     print()
 
     if migratable:
@@ -179,8 +181,6 @@ def print_statistics(cfg1, cfg2, common, file1, file2):
 
 
 def main():
-    print(BANNER)
-
     if len(sys.argv) != 3:
         print("Usage: python migrate_to_vrrp3.py core1.txt core2.txt")
         sys.exit(1)
