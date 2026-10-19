@@ -218,21 +218,35 @@
             </div>
             <div class="p-4 sm:p-5 text-left code-block text-gray-300">
               <div><span class="text-emerald-400">$</span> <span class="text-gray-100">python3 hsrp2vrrp.py</span></div>
-              <div class="mt-3 text-gray-500"># Checking core configs:</div>
-              <div class="text-gray-500">#   [+] core1.txt  (24531 bytes)</div>
-              <div class="text-gray-500">#   [+] core2.txt  (24310 bytes)</div>
-              <div class="text-gray-500"># Checking migration scripts:</div>
-              <div class="text-gray-500">#   [+] VRRPv2:  migrate_to_vrrp2.py</div>
-              <div class="text-gray-500">#   [+] VRRPv3:  migrate_to_vrrp3.py</div>
-              <div class="mt-2 text-brand-400"># MAIN MENU</div>
-              <div class="text-gray-100">1 — Migrate to VRRPv2</div>
-              <div class="text-gray-100">2 — Migrate to VRRPv3</div>
-              <div class="text-gray-100">0 — Exit</div>
-              <div class="mt-2 text-gray-500">Your choice (0/1/2): <span class="text-brand-400">2</span></div>
-              <div class="mt-3 text-gray-500"># Found HSRP groups: 14, to migrate: 12, tracks: 8</div>
-              <div class="mt-1 text-emerald-400 flex items-center gap-1.5">
+              <div class="mt-3 text-gray-500">======================================================================</div>
+              <div class="text-gray-100">  HSRP -> VRRP Migration Toolkit</div>
+              <div class="text-gray-500">======================================================================</div>
+              <div class="mt-1 text-gray-500">  configs:  core1.txt [OK]   core2.txt [OK]</div>
+              <div class="text-gray-500">  scripts:  migrate_to_vrrp2.py [OK]   migrate_to_vrrp3.py [OK]</div>
+              <div class="mt-1 text-gray-500">  --------------------------------------------------------------</div>
+              <div class="mt-1 text-gray-100">   [1]  Migrate to VRRPv2  (with authentication)</div>
+              <div class="text-gray-100">   [2]  Migrate to VRRPv3  (no authentication)</div>
+              <div class="text-gray-100">   [0]  Exit</div>
+              <div class="mt-1 text-gray-500">======================================================================</div>
+              <div class="mt-2 text-gray-500">  Your choice (0/1/2): <span class="text-brand-400">2</span></div>
+              
+              <div class="mt-3 text-gray-500">======================================================================</div>
+              <div class="text-gray-100">  СТАТИСТИКА</div>
+              <div class="text-gray-500">======================================================================</div>
+              <div class="text-gray-500">  Файл 1:                              core1.txt</div>
+              <div class="text-gray-500">  Файл 2:                              core2.txt</div>
+              <div class="text-gray-500">  Общих интерфейсов:                   105</div>
+              <div class="text-gray-500">  Найдено HSRP-групп (всего):          18</div>
+              <div class="text-gray-500">  Будет переведено в VRRP:             18</div>
+              <div class="text-gray-500">  Только в core1.txt: 150 шт. (GigabitEthernet1/1/1, ... и ещё 145)</div>
+              <div class="mt-1 text-gray-500">  Планируемые к миграции:</div>
+              <div class="text-gray-500">    - Vlan2: group 2</div>
+              <div class="text-gray-500">    ...</div>
+              <div class="text-gray-500">======================================================================</div>
+
+              <div class="mt-3 text-emerald-400 flex items-center gap-1.5">
                 <iconify-icon icon="mdi:check-circle" class="text-sm"></iconify-icon>
-                migrate_to_vrrp3.py finished (code 0)
+                Сохранено в migrate_vrrp3_sequential.cfg
               </div>
             </div>
           </div>
@@ -264,7 +278,7 @@
         </p>
         <p data-i18n="about_p3">
           В комплекте — обёртка hsrp2vrrp.py: проверяет окружение (наличие конфигов и дочерних скриптов),
-          отображает интерактивное меню выбора версии и возвращает управление по завершении миграции.
+          отображает интерактивное ASCII-меню и возвращает управление по завершении миграции.
         </p>
       </div>
 
@@ -318,7 +332,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100 dark:divide-white/5">
-            <tr><td data-i18n="f_launcher" class="px-5 py-3">Универсальный лаунчер с меню</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td data-i18n="f_launcher" class="px-5 py-3">Универсальный лаунчер с ASCII-меню</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td data-i18n="f_parse" class="px-5 py-3">Автопарсинг HSRP, VIP и приоритетов</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td data-i18n="f_roles" class="px-5 py-3">Определение active/standby по RFC 2281</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td data-i18n="f_seq" class="px-5 py-3">Последовательный вывод (standby → active)</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
@@ -329,7 +343,7 @@
             <tr><td class="px-5 py-3"><span data-i18n="f_ospf">Автоматический</span> <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">ip ospf cost</code></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3"><code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">preempt delay minimum 180</code></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3"><span data-i18n="f_prio">Приоритеты</span> <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">110</code> / <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">105</code></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td data-i18n="f_stats" class="px-5 py-3">Подробная статистика миграции</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td data-i18n="f_stats" class="px-5 py-3">Компактная статистика миграции</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td data-i18n="f_env" class="px-5 py-3">Проверка окружения лаунчером</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
           </tbody>
         </table>
@@ -380,7 +394,7 @@
       </div>
 
       <p data-i18n="qs_note" class="mt-5 text-center text-sm text-gray-600 dark:text-gray-400">
-        На выходе появится файл migrate_vrrp2_sequential.cfg или migrate_vrrp3_sequential.cfg.
+        На выходе появится файл migrate_vrrp2_sequential.cfg или migrate_vrrp3_sequential.cfg (вывод конфига в консоль отключён).
       </p>
     </div>
   </section>
@@ -558,11 +572,11 @@
 
         <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
           <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-            <span data-i18n="faq_q3" class="font-semibold text-sm pr-4">Что делать, если ключи HSRP на ядрах различались?</span>
+            <span data-i18n="faq_q3" class="font-semibold text-sm pr-4">Почему скрипт не выводит конфиг в консоль?</span>
             <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
           </summary>
           <div data-i18n="faq_a3" class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            Скрипт migrate_to_vrrp2.py игнорирует исходные ключи HSRP. Вы вводите единый ключ, и он применяется к обоим ядрам.
+            Для удобства работы вывод конфигурации отключён. Все сгенерированные команды сохраняются в файл migrate_vrrpX_sequential.cfg. В конце работы скрипт выводит только подтверждение: «Сохранено в migrate_vrrpX_sequential.cfg».
           </div>
         </details>
 
@@ -588,16 +602,6 @@
               <li>VRRPv3: track &lt;...&gt; внутри address-family ipv4</li>
             </ul>
             <p data-i18n="faq_a5_outro">Поддерживаются object-tracking (track 1 decrement 20) и interface-tracking (track GigabitEthernet0/0 10).</p>
-          </div>
-        </details>
-
-        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
-          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-            <span data-i18n="faq_q6" class="font-semibold text-sm pr-4">Можно ли применить всё сразу, не по одному VLAN?</span>
-            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div data-i18n="faq_a6" class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            Технически — да, но это приведёт к длительному разрыву на всех сегментах одновременно. Применяйте поочерёдно.
           </div>
         </details>
       </div>
@@ -675,7 +679,7 @@
         about_sub: 'Набор инструментов для планируемой миграции протокола резервирования первого хопа с HSRP на открытый VRRP.',
         about_p1: 'Проект решает задачу плановой миграции FHRP на паре ядерных коммутаторов Cisco. Задача типична при переходе на вендор-независимую архитектуру, унификации политики FHRP в смешанной инфраструктуре и подготовке к миграции на сторонние платформы (Arista, Juniper, Huawei, NX-OS).',
         about_p2: 'Инструмент автоматически анализирует две конфигурации show running-config с ядер core1 и core2, находит общие VLAN, группы HSRP, VIP, приоритеты и track-объекты, определяет роли active/standby по правилам RFC 2281 и генерирует последовательность команд VRRPv2 или VRRPv3 в порядке, минимизирующем простой хостов.',
-        about_p3: 'В комплекте — обёртка hsrp2vrrp.py: проверяет окружение (наличие конфигов и дочерних скриптов), отображает интерактивное меню выбора версии и возвращает управление по завершении миграции.',
+        about_p3: 'В комплекте — обёртка hsrp2vrrp.py: проверяет окружение (наличие конфигов и дочерних скриптов), отображает интерактивное ASCII-меню и возвращает управление по завершении миграции.',
         about_step: 'Шаг',
         about_step1_title: 'Standby-ядро',
         about_step1_desc: 'Применяется первым. Временно становится мастером.',
@@ -687,7 +691,7 @@
         features_title: 'Возможности',
         features_sub: 'Функциональная матрица для VRRPv2 и VRRPv3.',
         th_feature: 'Возможность',
-        f_launcher: 'Универсальный лаунчер с меню',
+        f_launcher: 'Универсальный лаунчер с ASCII-меню',
         f_parse: 'Автопарсинг HSRP, VIP и приоритетов',
         f_roles: 'Определение active/standby по RFC 2281',
         f_seq: 'Последовательный вывод (standby → active)',
@@ -698,14 +702,14 @@
         f_af: 'Настройка',
         f_ospf: 'Автоматический',
         f_prio: 'Приоритеты',
-        f_stats: 'Подробная статистика миграции',
+        f_stats: 'Компактная статистика миграции',
         f_env: 'Проверка окружения лаунчером',
 
         qs_title: 'Быстрый старт',
         qs_sub: 'Клонируйте и запустите за пару минут.',
         qs_way1: 'Способ 1 — универсальный лаунчер (рекомендуется)',
         qs_way2: 'Способ 2 — напрямую',
-        qs_note: 'На выходе появится файл migrate_vrrp2_sequential.cfg или migrate_vrrp3_sequential.cfg.',
+        qs_note: 'На выходе появится файл migrate_vrrp2_sequential.cfg или migrate_vrrp3_sequential.cfg (вывод конфига в консоль отключён).',
 
         st_title: 'Стратегия миграции',
         st_sub: 'Пошаговый сценарий на один VLAN. Повторяется для каждого VLAN, начиная с наименее критичных.',
@@ -738,16 +742,14 @@
         faq_a1: 'Используйте python3 либо установите псевдоним:',
         faq_q2: 'Чем отличается запуск через hsrp2vrrp.py от прямого?',
         faq_a2: 'Лаунчер hsrp2vrrp.py валидирует конфиги и скрипты, показывает меню, запускает нужный скрипт через subprocess и возвращает управление. Прямой запуск работает так же, но без проверок и меню. Результат генерации идентичен.',
-        faq_q3: 'Что делать, если ключи HSRP на ядрах различались?',
-        faq_a3: 'Скрипт migrate_to_vrrp2.py игнорирует исходные ключи HSRP. Вы вводите единый ключ, и он применяется к обоим ядрам.',
+        faq_q3: 'Почему скрипт не выводит конфиг в консоль?',
+        faq_a3: 'Для удобства работы вывод конфигурации отключён (чтобы не засорять терминал сотнями строк). Все сгенерированные команды сохраняются в файл migrate_vrrpX_sequential.cfg. В конце работы скрипт выводит только подтверждение: «Сохранено в migrate_vrrpX_sequential.cfg».',
         faq_q4: 'Почему в VRRPv3 нет аутентификации?',
         faq_a4: 'RFC 5798 не предусматривает механизмов аутентификации. Компенсируйте ACL на ff02::12 и сегментацией.',
         faq_q5: 'Как переносятся track-и?',
         faq_a5_intro: 'Скрипт находит строки standby <group> track ... и сохраняет всё после track:',
         faq_a5_list: 'VRRPv2: vrrp <group> track <...>|VRRPv3: track <...> внутри address-family ipv4',
         faq_a5_outro: 'Поддерживаются object-tracking (track 1 decrement 20) и interface-tracking (track GigabitEthernet0/0 10).',
-        faq_q6: 'Можно ли применить всё сразу, не по одному VLAN?',
-        faq_a6: 'Технически — да, но это приведёт к длительному разрыву на всех сегментах одновременно. Применяйте поочерёдно.',
 
         footer_note: 'Скрипты предоставляются «как есть». Всегда тестируйте на стенде перед применением в production.',
         footer_made: 'Сделано с',
@@ -772,7 +774,7 @@
         about_sub: 'Toolkit for planned migration of the first-hop redundancy protocol from HSRP to open-standard VRRP.',
         about_p1: 'The project addresses planned FHRP migration on a pair of Cisco core switches. Typical for moving to vendor-neutral architecture, unifying FHRP policy in mixed environments, and preparing migrations to third-party platforms (Arista, Juniper, Huawei, NX-OS).',
         about_p2: 'The tool automatically parses two show running-config dumps (core1 and core2), finds common VLANs, HSRP groups, VIPs, priorities, and track objects, determines active/standby roles per RFC 2281, and generates VRRPv2 or VRRPv3 command sequences in the order that minimizes host downtime.',
-        about_p3: 'Includes the hsrp2vrrp.py wrapper: validates the environment (configs and child scripts), shows an interactive menu, and returns control once migration completes.',
+        about_p3: 'Includes the hsrp2vrrp.py wrapper: validates the environment (configs and child scripts), shows an interactive ASCII menu, and returns control once migration completes.',
         about_step: 'Step',
         about_step1_title: 'Standby core',
         about_step1_desc: 'Applied first. Temporarily becomes the master.',
@@ -784,7 +786,7 @@
         features_title: 'Features',
         features_sub: 'Capability matrix for VRRPv2 and VRRPv3.',
         th_feature: 'Feature',
-        f_launcher: 'Universal launcher with menu',
+        f_launcher: 'Universal launcher with ASCII menu',
         f_parse: 'Auto-parse of HSRP, VIP and priorities',
         f_roles: 'Active/standby detection per RFC 2281',
         f_seq: 'Sequential output (standby → active)',
@@ -795,14 +797,14 @@
         f_af: 'Configure',
         f_ospf: 'Automatic',
         f_prio: 'Priorities',
-        f_stats: 'Detailed migration statistics',
+        f_stats: 'Compact migration statistics',
         f_env: 'Launcher environment check',
 
         qs_title: 'Quickstart',
         qs_sub: 'Clone and run in a couple of minutes.',
         qs_way1: 'Way 1 — universal launcher (recommended)',
         qs_way2: 'Way 2 — directly',
-        qs_note: 'Resulting file: migrate_vrrp2_sequential.cfg or migrate_vrrp3_sequential.cfg.',
+        qs_note: 'Resulting file: migrate_vrrp2_sequential.cfg or migrate_vrrp3_sequential.cfg (console config output is disabled).',
 
         st_title: 'Migration strategy',
         st_sub: 'Step-by-step scenario per VLAN. Repeat for each VLAN, starting with the least critical.',
@@ -835,16 +837,14 @@
         faq_a1: 'Use python3 or install the alias:',
         faq_q2: 'How is running via hsrp2vrrp.py different from direct?',
         faq_a2: 'The hsrp2vrrp.py launcher validates configs and scripts, shows a menu, launches the selected script via subprocess, and returns control. Direct run works the same, without checks and menu. Generated output is identical.',
-        faq_q3: 'What if HSRP keys differed between cores?',
-        faq_a3: 'migrate_to_vrrp2.py ignores original HSRP keys. You enter a single key that is applied to both cores.',
+        faq_q3: 'Why does the script not print the generated config to the console?',
+        faq_a3: 'To keep the terminal clean, the config output is disabled (to avoid scrolling through hundreds of lines). All generated commands are saved to migrate_vrrpX_sequential.cfg. At the end, the script only prints: "Сохранено в migrate_vrrpX_sequential.cfg".',
         faq_q4: 'Why no authentication in VRRPv3?',
         faq_a4: 'RFC 5798 does not define authentication. Compensate with ACL on ff02::12 and segmentation.',
         faq_q5: 'How are track objects transferred?',
         faq_a5_intro: 'The script finds lines standby <group> track ... and preserves everything after track:',
         faq_a5_list: 'VRRPv2: vrrp <group> track <...>|VRRPv3: track <...> inside address-family ipv4',
         faq_a5_outro: 'Both object-tracking (track 1 decrement 20) and interface-tracking (track GigabitEthernet0/0 10) are supported.',
-        faq_q6: 'Can everything be applied at once, not per VLAN?',
-        faq_a6: 'Technically yes, but it causes prolonged outage across all segments. Apply one VLAN at a time.',
 
         footer_note: 'Scripts are provided "as is". Always test in the lab before using in production.',
         footer_made: 'Made with',
