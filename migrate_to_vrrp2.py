@@ -3,14 +3,10 @@
 
 import re
 import sys
-def parse_config(path):
-    """Парсит конфиг IOS.
 
-    Совместимо с Python 3.6+: re.split() с zero-width lookahead
-    (например `(?=^interface\\s+)`) в 3.6 вызывает
-    ValueError: split() requires a non-empty pattern match.
-    Поэтому используем finditer + ручную нарезку.
-    """
+
+def parse_config(path):
+    """Парсит конфиг IOS. Совместимо с Python 3.6+."""
     with open(path, encoding='utf-8') as f:
         text = f.read()
 
@@ -52,9 +48,7 @@ def parse_config(path):
                 elif key == 'preempt':
                     d['preempt'] = True
                 elif key == 'track' and len(rest) >= 2:
-                    # Сохраняем всё после "track" — формат совместим с VRRP
                     d.setdefault('tracks', []).append(' '.join(rest[1:]))
-                # аутентификация HSRP больше не используется
 
         interfaces[iface] = data
 
@@ -101,7 +95,6 @@ def vrrp2_block(iface_data, group, is_active, auth_type=None, auth_key=None):
     out.append(f' vrrp {group} preempt delay minimum 180')
     out.append(f' vrrp {group} priority {priority}')
 
-    # track-и переносятся в тот же блок группы
     for track_spec in iface_data['standby'][group].get('tracks', []):
         out.append(f' vrrp {group} track {track_spec}')
 
@@ -144,6 +137,12 @@ def print_statistics(cfg1, cfg2, common, file1, file2):
     only_in_1 = set(cfg1) - set(cfg2)
     only_in_2 = set(cfg2) - set(cfg1)
 
+    def _short(ifaces):
+        s = sorted(ifaces)
+        if len(s) <= 5:
+            return ", ".join(s)
+        return ", ".join(s[:5]) + f" ... и ещё {len(s)-5}"
+
     print()
     print('=' * 70)
     print('  СТАТИСТИКА')
@@ -157,10 +156,11 @@ def print_statistics(cfg1, cfg2, common, file1, file2):
     print(f'  Track-ов будет перенесено:           {tracks_total}')
     if skipped:
         print(f'  Пропущено (нет VIP):                 {len(skipped)}')
+    
     if only_in_1:
-        print(f'  Только в {file1}: {", ".join(sorted(only_in_1))}')
+        print(f'  Только в {file1}: {len(only_in_1)} шт. ({_short(only_in_1)})')
     if only_in_2:
-        print(f'  Только в {file2}: {", ".join(sorted(only_in_2))}')
+        print(f'  Только в {file2}: {len(only_in_2)} шт. ({_short(only_in_2)})')
     print()
 
     if migratable:
@@ -183,13 +183,10 @@ def print_statistics(cfg1, cfg2, common, file1, file2):
 
 
 def main():
-    print(BANNER)
-
     if len(sys.argv) != 3:
         print("Usage: python migrate_to_vrrp2.py core1.txt core2.txt")
         sys.exit(1)
 
-    # ---- интерактивный выбор аутентификации ----
     print("Выберите тип аутентификации для VRRPv2:")
     print("1 - Без аутентификации")
     print("2 - Текстовая аутентификация (text)")
