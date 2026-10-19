@@ -4,10 +4,22 @@
 import re
 import sys
 def parse_config(path):
+    """Парсит конфиг IOS.
+
+    Совместимо с Python 3.6+: re.split() с zero-width lookahead
+    (например `(?=^interface\\s+)`) в 3.6 вызывает
+    ValueError: split() requires a non-empty pattern match.
+    Поэтому используем finditer + ручную нарезку.
+    """
     with open(path, encoding='utf-8') as f:
         text = f.read()
 
-    parts = re.split(r'(?=^interface\s+)', text, flags=re.M)
+    starts = [m.start() for m in re.finditer(r'^interface\s+', text, flags=re.M)]
+    parts = []
+    for i, s in enumerate(starts):
+        e = starts[i + 1] if i + 1 < len(starts) else len(text)
+        parts.append(text[s:e])
+
     interfaces = {}
 
     for part in parts:
