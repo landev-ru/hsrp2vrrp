@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hsrp2vrrp — HSRP → VRRP Migration Toolkit</title>
-  <meta name="description" content="Автоматическая генерация команд для плавного перехода с HSRP на VRRPv2 / VRRPv3 на Cisco IOS / IOS-XE." />
+  <meta name="description" content="Планируемая миграция FHRP с HSRP на VRRPv2 / VRRPv3 на паре ядерных коммутаторов Cisco: автопарсинг, определение ролей, перенос track-объектов, пошаговая стратегия." />
 
   <meta property="og:title" content="hsrp2vrrp — HSRP → VRRP Migration Toolkit" />
   <meta property="og:description" content="Автоматическая генерация команд для перехода с HSRP на VRRPv2 / VRRPv3." />
@@ -101,10 +101,11 @@
       </a>
       <div class="flex items-center gap-1 sm:gap-2">
         <a href="#about" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">О проекте</a>
+        <a href="#architecture" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Архитектура</a>
         <a href="#features" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Возможности</a>
         <a href="#quickstart" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Старт</a>
-        <a href="#prepare" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Подготовка</a>
-        <a href="#usage" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Использование</a>
+        <a href="#strategy" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Стратегия</a>
+        <a href="#verification" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Проверка</a>
         <a href="#faq" class="hidden lg:inline-flex px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">FAQ</a>
         <a href="https://github.com/landev-ru/hsrp2vrrp" target="_blank" rel="noopener"
            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold hover:opacity-90 transition-opacity">
@@ -143,12 +144,12 @@
 
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-5">
           Миграция <span class="gradient-text">HSRP → VRRP</span><br/>
-          без простоя
+          без массового простоя
         </h1>
         <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8 max-w-2xl mx-auto">
-          Универсальный лаунчер, автоматическая генерация команд для плавного перехода с HSRP на VRRPv2 / VRRPv3
-          на двух ядрах сети. Последовательное применение, минимизация разрыва,
-          поддержка аутентификации и <strong class="text-gray-900 dark:text-white">перенос track-объектов</strong>.
+          Планируемая миграция FHRP с HSRP на VRRPv2 / VRRPv3 на паре ядерных коммутаторов Cisco.
+          Полный разбор конфигураций, определение ролей active/standby, перенос track-объектов
+          и пошаговая стратегия применения.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -173,11 +174,12 @@
             </div>
             <div class="p-4 sm:p-5 text-left code-block text-gray-300">
               <div><span class="text-emerald-400">$</span> <span class="text-gray-100">python3 hsrp2vrrp.py</span></div>
-              <div class="mt-3 text-gray-500"># Баннер проекта...</div>
-              <div class="text-gray-500"># [+] core1.txt  (24531 байт)</div>
-              <div class="text-gray-500"># [+] core2.txt  (24310 байт)</div>
-              <div class="text-gray-500"># [+] VRRPv2:  migrate_to_vrrp2.py</div>
-              <div class="text-gray-500"># [+] VRRPv3:  migrate_to_vrrp3.py</div>
+              <div class="mt-3 text-gray-500"># Проверка конфигурационных файлов ядер:</div>
+              <div class="text-gray-500">#   [+] core1.txt  (24531 байт)</div>
+              <div class="text-gray-500">#   [+] core2.txt  (24310 байт)</div>
+              <div class="text-gray-500"># Проверка наличия скриптов миграции:</div>
+              <div class="text-gray-500">#   [+] VRRPv2:  migrate_to_vrrp2.py</div>
+              <div class="text-gray-500">#   [+] VRRPv3:  migrate_to_vrrp3.py</div>
               <div class="mt-2 text-brand-400"># ГЛАВНОЕ МЕНЮ</div>
               <div class="text-gray-100">1 — Перейти на VRRPv2</div>
               <div class="text-gray-100">2 — Перейти на VRRPv3</div>
@@ -203,60 +205,144 @@
           <iconify-icon icon="mdi:information" class="text-brand-600 dark:text-brand-400"></iconify-icon>
         </div>
         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">О проекте</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Набор инструментов для планируемой миграции протокола резервирования первого хопа с HSRP на открытый VRRP.</p>
       </div>
-      <div class="text-gray-600 dark:text-gray-400 leading-relaxed space-y-5 text-center text-lg">
+      <div class="text-gray-600 dark:text-gray-400 leading-relaxed space-y-5 text-lg">
         <p>
-          Набор из двух Python-скриптов, которые анализируют конфигурации двух ядер сети
-          (active / standby), находят общие VLAN, группы HSRP и track-объекты и генерируют готовую
-          последовательность команд для перевода резервирования шлюза на
-          <strong class="text-gray-900 dark:text-white">VRRPv2</strong> или
-          <strong class="text-gray-900 dark:text-white">VRRPv3</strong>.
+          Проект решает задачу <strong class="text-gray-900 dark:text-white">плановой миграции FHRP</strong> на паре ядерных коммутаторов Cisco.
+          Задача типична при переходе на вендор-независимую архитектуру, унификации политики FHRP
+          в смешанной инфраструктуре и подготовке к миграции на сторонние платформы (Arista, Juniper, Huawei, NX-OS),
+          где HSRP либо не поддерживается, либо ограничен.
         </p>
         <p>
-          Скрипты определяют, какое ядро является активным (по приоритету HSRP,
-          а при равенстве — по IP-адресу интерфейса), и переносят track-и
-          в той же группе и на том же интерфейсе, где они были в HSRP.
+          Инструмент <strong class="text-gray-900 dark:text-white">автоматически анализирует</strong> две конфигурации
+          (<code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">show running-config</code> с ядер core1 и core2),
+          находит общие VLAN, группы HSRP, VIP, приоритеты и track-объекты, <strong class="text-gray-900 dark:text-white">определяет роли active/standby</strong>
+          по правилам RFC 2281 и <strong class="text-gray-900 dark:text-white">генерирует последовательность команд</strong>
+          VRRPv2 или VRRPv3 в порядке, минимизирующем простой хостов.
         </p>
         <p>
-          В комплекте идёт <strong class="text-gray-900 dark:text-white">универсальный лаунчер hsrp2vrrp.py</strong>:
-          выводит баннер, проверяет конфиги и скрипты миграции, показывает меню выбора.
+          В комплекте — <strong class="text-gray-900 dark:text-white">обёртка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">hsrp2vrrp.py</code></strong>:
+          проверяет окружение (наличие конфигов и дочерних скриптов), отображает интерактивное меню выбора версии
+          и возвращает управление по завершении миграции.
         </p>
       </div>
 
-      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-        <div class="w-full sm:w-auto px-6 py-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center gap-3">
-          <iconify-icon icon="mdi:check-circle" class="text-2xl text-emerald-500"></iconify-icon>
-          <div class="text-left">
-            <div class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Шаг 1</div>
-            <div class="font-bold text-emerald-900 dark:text-emerald-300">Standby-ядро</div>
+      <div class="mt-10 grid sm:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20">
+          <div class="flex items-center gap-2 mb-2">
+            <iconify-icon icon="mdi:check-circle" class="text-xl text-emerald-600 dark:text-emerald-400"></iconify-icon>
+            <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Шаг 1</span>
           </div>
+          <div class="font-bold text-emerald-900 dark:text-emerald-300 mb-1">Standby-ядро</div>
+          <p class="text-xs text-emerald-800 dark:text-emerald-400">Применяется первым. Временно становится мастером.</p>
         </div>
-        <svg class="w-6 h-6 text-gray-400 rotate-90 sm:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-        </svg>
-        <div class="w-full sm:w-auto px-6 py-4 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-center gap-3">
-          <iconify-icon icon="mdi:flash" class="text-2xl text-blue-500"></iconify-icon>
-          <div class="text-left">
-            <div class="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider">Шаг 2</div>
-            <div class="font-bold text-blue-900 dark:text-blue-300">Active-ядро</div>
+        <div class="p-5 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20">
+          <div class="flex items-center gap-2 mb-2">
+            <iconify-icon icon="mdi:flash" class="text-xl text-blue-600 dark:text-blue-400"></iconify-icon>
+            <span class="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider">Шаг 2</span>
           </div>
+          <div class="font-bold text-blue-900 dark:text-blue-300 mb-1">Active-ядро</div>
+          <p class="text-xs text-blue-800 dark:text-blue-400">Возвращает мастер-роль через preempt delay.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-violet-50 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/20">
+          <div class="flex items-center gap-2 mb-2">
+            <iconify-icon icon="mdi:shield-check" class="text-xl text-violet-600 dark:text-violet-400"></iconify-icon>
+            <span class="text-xs font-semibold text-violet-700 dark:text-violet-400 uppercase tracking-wider">Шаг 3</span>
+          </div>
+          <div class="font-bold text-violet-900 dark:text-violet-300 mb-1">Проверка</div>
+          <p class="text-xs text-violet-800 dark:text-violet-400">Верификация и переход к следующему VLAN.</p>
         </div>
       </div>
-      <p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-        Такой порядок позволяет минимизировать простой хостов в сегменте.
-      </p>
+    </div>
+  </section>
+
+  <!-- ============ ARCHITECTURE ============ -->
+  <section id="architecture" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <div class="sec-icon mx-auto mb-4">
+          <iconify-icon icon="mdi:sitemap" class="text-brand-600 dark:text-brand-400"></iconify-icon>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Архитектура и принцип работы</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Логика анализа, определения ролей и генерации команд.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center">
+              <iconify-icon icon="mdi:crown" class="text-xl text-brand-600 dark:text-brand-400"></iconify-icon>
+            </div>
+            <h3 class="font-bold text-lg">Определение active / standby</h3>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Алгоритм повторяет правила выбора active-роутера по RFC 2281:</p>
+          <ol class="text-sm text-gray-600 dark:text-gray-400 space-y-2 list-decimal list-inside">
+            <li>Сравниваются <strong>приоритеты</strong> <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">standby &lt;g&gt; priority</code>. Выше приоритет — active.</li>
+            <li>При равенстве (по умолчанию <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">100</code>) сравниваются <strong>IP-адреса</strong> VLAN-интерфейсов: большее значение — active.</li>
+            <li>Если IP-адреса не найдены — <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">core1</code> считается active по умолчанию.</li>
+          </ol>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mt-3">Такая логика гарантирует преемственность ролей: тот же роутер, что был HSRP-active, становится VRRP-мастером.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
+              <iconify-icon icon="mdi:target" class="text-xl text-emerald-600 dark:text-emerald-400"></iconify-icon>
+            </div>
+            <h3 class="font-bold text-lg">Перенос track-объектов</h3>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Строки <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">standby &lt;g&gt; track ...</code> анализируются и переносятся без изменения синтаксиса:</p>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2 list-disc list-inside">
+            <li><strong>object-tracking</strong>: <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">track 1 decrement 20</code></li>
+            <li><strong>interface-tracking</strong>: <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">track GigabitEthernet0/0 10</code></li>
+          </ul>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mt-3">В VRRPv2 — на уровне интерфейса; в VRRPv3 — внутри <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">address-family ipv4</code>.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center">
+              <iconify-icon icon="mdi:routes" class="text-xl text-violet-600 dark:text-violet-400"></iconify-icon>
+            </div>
+            <h3 class="font-bold text-lg">OSPF cost и preempt delay</h3>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Для минимизации «перекоса» трафика в переходный период:</p>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+            <li><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">ip ospf cost 1</code> для active, <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">10</code> для standby</li>
+            <li><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">vrrp priority 110</code> / <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">105</code></li>
+            <li><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">preempt delay minimum 180</code> — защита от флаппинга</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-cyan-50 dark:bg-cyan-500/10 flex items-center justify-center">
+              <iconify-icon icon="mdi:format-list-numbered" class="text-xl text-cyan-600 dark:text-cyan-400"></iconify-icon>
+            </div>
+            <h3 class="font-bold text-lg">Порядок вывода команд</h3>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Для каждого VLAN:</p>
+          <ol class="text-sm text-gray-600 dark:text-gray-400 space-y-1.5 list-decimal list-inside">
+            <li>Блок standby-ядра — временно становится мастером</li>
+            <li>Проверка <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show vrrp brief</code></li>
+            <li>Блок active-ядра — возвращает мастер-роль через preempt</li>
+            <li>Проверка <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show vrrp</code> / <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">ping VIP</code></li>
+          </ol>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============ FEATURES ============ -->
-  <section id="features" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+  <section id="features" class="py-14 md:py-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <div class="sec-icon mx-auto mb-4">
           <iconify-icon icon="mdi:star" class="text-amber-400"></iconify-icon>
         </div>
         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Возможности</h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Всё необходимое для безопасной миграции FHRP на двух ядрах сети.</p>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Функциональная матрица для VRRPv2 и VRRPv3.</p>
       </div>
 
       <div class="mb-10 overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02]">
@@ -270,123 +356,26 @@
           </thead>
           <tbody class="divide-y divide-gray-100 dark:divide-white/5">
             <tr><td class="px-5 py-3">Универсальный лаунчер с меню</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td class="px-5 py-3">Автопарсинг конфигов HSRP</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td class="px-5 py-3">Определение active/standby ядра</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td class="px-5 py-3">Автопарсинг HSRP, VIP и приоритетов</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td class="px-5 py-3">Определение active/standby по RFC 2281</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3">Последовательный вывод (standby → active)</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td class="px-5 py-3">Перенос track-объектов / track-интерфейсов</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td class="px-5 py-3">Выбор аутентификации (text / md5)</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:close-circle" class="fci-cancel"></iconify-icon><span class="text-xs italic block mt-0.5 text-gray-400">Cisco не поддерживает</span></td></tr>
+            <tr><td class="px-5 py-3">Перенос track-объектов / interface-tracking</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td class="px-5 py-3">Интерактивная настройка аутентификации</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:close-circle" class="fci-cancel"></iconify-icon><span class="text-xs italic block mt-0.5 text-gray-400">Не поддерживается Cisco</span></td></tr>
             <tr><td class="px-5 py-3">Глобальная команда <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">fhrp version vrrp v3</code></td><td class="text-center text-gray-400">—</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3">Настройка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">address-family ipv4</code></td><td class="text-center text-gray-400">—</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td class="px-5 py-3">Настройка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">ip ospf cost</code></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td class="px-5 py-3">Preempt delay <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">180</code> сек</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td class="px-5 py-3">Автоматический <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">ip ospf cost</code></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td class="px-5 py-3"><code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">preempt delay minimum 180</code></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
             <tr><td class="px-5 py-3">Приоритеты <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">110</code> / <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">105</code></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
-            <tr><td class="px-5 py-3">Баннер и статистика миграции</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td class="px-5 py-3">Подробная статистика миграции</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
+            <tr><td class="px-5 py-3">Проверка окружения лаунчером</td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td><td class="text-center"><iconify-icon icon="mdi:check-circle" class="fci-check"></iconify-icon></td></tr>
           </tbody>
         </table>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:menu-open" class="text-2xl text-brand-600 dark:text-brand-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Универсальный лаунчер</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">hsrp2vrrp.py</code> выводит баннер, проверяет конфиги и предлагает меню выбора VRRPv2 / VRRPv3.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:magnify" class="text-2xl text-brand-600 dark:text-brand-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Автопарсинг HSRP</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Автоматически находит VLAN, группы HSRP и track-и в конфигах обоих ядер.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:crown" class="text-2xl text-emerald-600 dark:text-emerald-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Определение ролей</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Ядро с большим приоритетом HSRP считается active. При равенстве сравниваются IP-адреса интерфейсов.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:format-list-numbered" class="text-2xl text-violet-600 dark:text-violet-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Последовательный вывод</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Для каждого VLAN команды выводятся в порядке <strong>standby → active</strong>.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:target" class="text-2xl text-emerald-600 dark:text-emerald-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Перенос Track</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Track-и из HSRP переносятся в VRRP в том же блоке группы. Поддержка object-tracking и interface-tracking.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:key-variant" class="text-2xl text-amber-600 dark:text-amber-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Аутентификация VRRPv2</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Интерактивный выбор: без аутентификации, текстовая или MD5.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:shield-check" class="text-2xl text-cyan-600 dark:text-cyan-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">VRRPv3 из коробки</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Глобальная команда <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">fhrp version vrrp v3</code> и настройка address-family ipv4.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:routes" class="text-2xl text-rose-600 dark:text-rose-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">OSPF cost</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Автоматическая установка стоимости OSPF: <strong>1</strong> для active, <strong>10</strong> для standby.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:chart-box" class="text-2xl text-indigo-600 dark:text-indigo-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Статистика миграции</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">При запуске — баннер проекта и подробная статистика по миграции.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:file-code" class="text-2xl text-slate-600 dark:text-slate-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Готовый .cfg</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Результат сохраняется в <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">migrate_vrrpX_sequential.cfg</code>.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:check-decagram" class="text-2xl text-teal-600 dark:text-teal-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Проверка окружения</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Лаунчер проверяет наличие <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">core1.txt</code>, <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">core2.txt</code> и скриптов миграции перед запуском.</p>
-        </div>
-
-        <div class="group p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all">
-          <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <iconify-icon icon="mdi:restart" class="text-2xl text-purple-600 dark:text-purple-400"></iconify-icon>
-          </div>
-          <h3 class="font-bold text-lg mb-1.5">Возврат в меню</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">После завершения скрипта лаунчер вернёт вас в меню — удобно для повторных запусков.</p>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ QUICKSTART ============ -->
-  <section id="quickstart" class="py-14 md:py-20">
+  <section id="quickstart" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <div class="sec-icon mx-auto mb-4">
@@ -408,7 +397,7 @@
 <span class="text-emerald-400">git</span> clone https://github.com/landev-ru/hsrp2vrrp.git
 <span class="text-emerald-400">cd</span> hsrp2vrrp
 
-<span class="text-gray-500"># Запускаем лаунчер: покажет баннер, проверит конфиги, откроет меню</span>
+<span class="text-gray-500"># Запускаем лаунчер: проверит конфиги, откроет меню</span>
 <span class="text-emerald-400">python3</span> hsrp2vrrp.py</code></pre>
       </div>
 
@@ -432,21 +421,6 @@
         или <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_vrrp3_sequential.cfg</code>.
       </p>
 
-      <h3 class="mt-8 text-xl font-bold mb-4">Альтернативный запуск (без вызова интерпретатора)</h3>
-      <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
-        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
-          <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
-          <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
-          <span class="ml-3 text-xs text-gray-500 font-mono">bash</span>
-        </div>
-        <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code><span class="text-emerald-400">chmod</span> +x hsrp2vrrp.py migrate_to_vrrp2.py migrate_to_vrrp3.py
-
-<span class="text-emerald-400">./hsrp2vrrp.py</span>
-<span class="text-emerald-400">./migrate_to_vrrp2.py</span> core1.txt core2.txt
-<span class="text-emerald-400">./migrate_to_vrrp3.py</span> core1.txt core2.txt</code></pre>
-      </div>
-
       <div class="mt-8 p-5 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02]">
         <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
           <iconify-icon icon="mdi:package-variant" class="text-xl text-brand-600 dark:text-brand-400"></iconify-icon>
@@ -463,264 +437,156 @@
           </li>
           <li class="flex items-start gap-2.5">
             <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 flex-shrink-0"></span>
-            <span>Cisco IOS / IOS-XE с поддержкой VRRP</span>
+            <span>Cisco IOS / IOS-XE с поддержкой VRRP (см. матрицу совместимости)</span>
           </li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ============ PREPARE ============ -->
-  <section id="prepare" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- ============ STRATEGY ============ -->
+  <section id="strategy" class="py-14 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <div class="sec-icon mx-auto mb-4">
-          <iconify-icon icon="mdi:tools" class="text-brand-600 dark:text-brand-400"></iconify-icon>
+          <iconify-icon icon="mdi:map-marker-path" class="text-brand-600 dark:text-brand-400"></iconify-icon>
         </div>
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Подготовка</h2>
-        <p class="text-gray-600 dark:text-gray-400">Перед началом работ обязательно выполните следующие шаги.</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Стратегия миграции</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Пошаговый сценарий на один VLAN. Повторяется для каждого VLAN, начиная с наименее критичных.</p>
       </div>
 
-      <div class="space-y-5">
+      <div class="grid md:grid-cols-2 gap-5">
         <div class="p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
-          <div class="flex items-center gap-3 mb-4">
+          <div class="flex items-center gap-3 mb-3">
             <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">1</span>
-            <h3 class="font-bold">Резервное копирование конфигураций</h3>
+            <h3 class="font-bold">Подготовка (без изменений)</h3>
           </div>
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto">
-            copy running-config startup-config<br/>
-            copy startup-config flash:backup_core1.cfg<br/>
-            copy startup-config flash:backup_core2.cfg
-          </div>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1.5 list-disc list-inside">
+            <li>Снимок baseline: <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show standby brief</code>, <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show ip ospf neighbor</code></li>
+            <li>Проверка ACL: пропуск IP-протокола 112 на <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">224.0.0.18</code></li>
+            <li>Проверка <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show vrrp brief</code></li>
+            <li>Согласование окна для критичного сегмента</li>
+          </ul>
         </div>
 
         <div class="p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">2</span>
-            <h3 class="font-bold">Проверка поддержки VRRP</h3>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-sm font-bold flex items-center justify-center">2</span>
+            <h3 class="font-bold">Применение блока Standby</h3>
           </div>
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto mb-3">
-            show vrrp<br/>
-            show vrrp brief
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Для VRRPv3:</p>
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto mt-2">
-            fhrp version vrrp v3
-          </div>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1.5 list-disc list-inside">
+            <li>Войти на standby-ядро, применить блок</li>
+            <li><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show vrrp brief</code> — standby в статусе Master</li>
+            <li><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">ping &lt;VIP&gt;</code> с хоста — стабильно (1–3 потери)</li>
+          </ul>
         </div>
 
         <div class="p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 text-sm font-bold flex items-center justify-center">3</span>
+            <h3 class="font-bold">Применение блока Active</h3>
+          </div>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1.5 list-disc list-inside">
+            <li>Войти на active-ядро, применить блок</li>
+            <li><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show vrrp brief</code> — active в статусе Master (приоритет 110 &gt; 105)</li>
+            <li>Preempt delay 180 — в течение 3 минут возможен Backup, это ожидаемо</li>
+          </ul>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="w-8 h-8 rounded-lg bg-violet-100 dark:bg-violet-500/15 text-violet-700 dark:text-violet-400 text-sm font-bold flex items-center justify-center">4</span>
+            <h3 class="font-bold">Верификация и документирование</h3>
+          </div>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1.5 list-disc list-inside">
+            <li>Роли VRRP совпадают с pre-migration HSRP</li>
+            <li>Все track-объекты Up</li>
+            <li>OSPF-соседство восстановлено</li>
+            <li>Результат зафиксирован в журнале изменений</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 p-5 rounded-2xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 flex items-start gap-3">
+        <iconify-icon icon="mdi:alert" class="text-2xl text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5"></iconify-icon>
+        <div>
+          <h4 class="font-bold text-amber-900 dark:text-amber-300 mb-1">Не параллелить VLAN</h4>
+          <p class="text-sm text-amber-800 dark:text-amber-400">Мигрируйте VLAN поочерёдно. Пакетное применение всех блоков одновременно приведёт к длительному разрыву на всех сегментах.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VERIFICATION & ROLLBACK ============ -->
+  <section id="verification" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <div class="sec-icon mx-auto mb-4">
+          <iconify-icon icon="mdi:shield-check" class="text-emerald-500"></iconify-icon>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Проверка и откат</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Чек-лист post-migration verification и критерии, при которых обязателен откат.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
           <div class="flex items-center gap-3 mb-4">
-            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">3</span>
-            <h3 class="font-bold">Проверка ACL</h3>
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
+              <iconify-icon icon="mdi:check-decagram" class="text-xl text-emerald-600 dark:text-emerald-400"></iconify-icon>
+            </div>
+            <h3 class="font-bold text-lg">Чек-лист верификации</h3>
           </div>
           <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-white/10">
-            <table class="w-full text-sm">
+            <table class="w-full text-xs">
               <thead class="bg-gray-50 dark:bg-white/[0.03]">
                 <tr>
-                  <th class="px-4 py-2.5 text-left font-semibold">Протокол</th>
-                  <th class="px-4 py-2.5 text-left font-semibold">IP-протокол</th>
-                  <th class="px-4 py-2.5 text-left font-semibold">Multicast-адрес</th>
+                  <th class="px-3 py-2 text-left font-semibold">Проверка</th>
+                  <th class="px-3 py-2 text-left font-semibold">Ожидание</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-100 dark:divide-white/5">
-                <tr><td class="px-4 py-2.5">VRRPv2</td><td class="px-4 py-2.5">112</td><td class="px-4 py-2.5 font-mono text-xs">224.0.0.18</td></tr>
-                <tr><td class="px-4 py-2.5">VRRPv3</td><td class="px-4 py-2.5">112</td><td class="px-4 py-2.5 font-mono text-xs">224.0.0.18, ff02::12</td></tr>
+                <tr><td class="px-3 py-2"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show vrrp brief</code></td><td class="px-3 py-2">Active — Master, Standby — Backup</td></tr>
+                <tr><td class="px-3 py-2"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">ping &lt;VIP&gt;</code></td><td class="px-3 py-2">0% loss после стабилизации</td></tr>
+                <tr><td class="px-3 py-2"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show track</code></td><td class="px-3 py-2">Все объекты Up</td></tr>
+                <tr><td class="px-3 py-2"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show ip ospf neighbor</code></td><td class="px-3 py-2">Full/2-Way по ожидаемым интерфейсам</td></tr>
+                <tr><td class="px-3 py-2"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show ip arp &lt;VIP&gt;</code></td><td class="px-3 py-2">Виртуальный MAC <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">0000.5e00.01xx</code></td></tr>
+                <tr><td class="px-3 py-2"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">show vrrp &lt;g&gt;</code></td><td class="px-3 py-2">preempt delay 180, ключ (v2) корректен</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+        <div class="p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
           <div class="flex items-center gap-3 mb-4">
-            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">4</span>
-            <h3 class="font-bold">Определение критичных сегментов</h3>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Для технологических и инфраструктурных ИУС/ИнфПАК выделите <strong>отдельное окно обслуживания</strong>.</p>
-        </div>
-
-        <div class="p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-400 text-sm font-bold flex items-center justify-center">5</span>
-            <h3 class="font-bold">Экспорт конфигураций</h3>
-          </div>
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto">
-            <span class="text-emerald-400">ssh</span> admin@core1 "show run" &gt; core1.txt<br/>
-            <span class="text-emerald-400">ssh</span> admin@core2 "show run" &gt; core2.txt
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ USAGE ============ -->
-  <section id="usage" class="py-14 md:py-20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <div class="sec-icon mx-auto mb-4">
-          <iconify-icon icon="mdi:book-open-page-variant" class="text-brand-600 dark:text-brand-400"></iconify-icon>
-        </div>
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Использование</h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Три способа: через лаунчер или напрямую каждый из скриптов.</p>
-      </div>
-
-      <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden mb-6">
-        <div class="px-6 py-5 border-b border-gray-200 dark:border-white/10 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-brand-50 dark:bg-brand-500/10 flex items-center justify-center">
-            <iconify-icon icon="mdi:menu-open" class="text-xl text-brand-600 dark:text-brand-400"></iconify-icon>
-          </div>
-          <div>
-            <h3 class="font-bold">Универсальный лаунчер</h3>
-            <p class="text-xs text-gray-500">hsrp2vrrp.py</p>
-          </div>
-        </div>
-        <div class="p-5">
-          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs mb-4 overflow-x-auto">
-            <div><span class="text-emerald-400">$</span> python3 hsrp2vrrp.py</div>
-            <div class="mt-2 text-gray-500"># Баннер проекта...</div>
-            <div class="text-gray-500"># Проверка конфигурационных файлов ядер:</div>
-            <div class="text-gray-500">#   [+] core1.txt  (24531 байт)</div>
-            <div class="text-gray-500">#   [+] core2.txt  (24310 байт)</div>
-            <div class="text-gray-500"># Проверка наличия скриптов миграции:</div>
-            <div class="text-gray-500">#   [+] VRRPv2:  migrate_to_vrrp2.py</div>
-            <div class="text-gray-500">#   [+] VRRPv3:  migrate_to_vrrp3.py</div>
-            <div class="mt-2 text-gray-500">==============================================================</div>
-            <div class="text-gray-500">ГЛАВНОЕ МЕНЮ</div>
-            <div class="text-gray-500">==============================================================</div>
-            <div class="text-gray-100">1 — Перейти на VRRPv2  (migrate_to_vrrp2.py)</div>
-            <div class="text-gray-100">2 — Перейти на VRRPv3  (migrate_to_vrrp3.py)</div>
-            <div class="text-gray-100">0 — Выход</div>
-            <div class="text-gray-500">==============================================================</div>
-            <div class="text-gray-500">Ваш выбор (0/1/2): <span class="text-brand-400">2</span></div>
-          </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Лаунчер сам подскажет команды экспорта конфигов, если их не хватает, и вернёт вас в меню после завершения скрипта.</p>
-        </div>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-6">
-        <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
-          <div class="px-6 py-5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center">
-                <iconify-icon icon="mdi:lock" class="text-xl text-blue-600 dark:text-blue-400"></iconify-icon>
-              </div>
-              <div>
-                <h3 class="font-bold">VRRPv2</h3>
-                <p class="text-xs text-gray-500">migrate_to_vrrp2.py</p>
-              </div>
+            <div class="w-10 h-10 rounded-lg bg-rose-50 dark:bg-rose-500/10 flex items-center justify-center">
+              <iconify-icon icon="mdi:backup-restore" class="text-xl text-rose-600 dark:text-rose-400"></iconify-icon>
             </div>
-            <span class="badge-shield bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/20">С аутентификацией</span>
+            <h3 class="font-bold text-lg">План отката</h3>
           </div>
-          <div class="p-5">
-            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs mb-5 overflow-x-auto">
-              <div><span class="text-emerald-400">$</span> python3 migrate_to_vrrp2.py core1.txt core2.txt</div>
-              <div class="mt-3 text-gray-500">Выберите тип аутентификации для VRRPv2:</div>
-              <div class="text-gray-500">1 - Без аутентификации</div>
-              <div class="text-gray-500">2 - Текстовая аутентификация (text)</div>
-              <div class="text-gray-500">3 - MD5 аутентификация (md5)</div>
-              <div class="text-gray-500">Ваш выбор (1/2/3): <span class="text-brand-400">3</span></div>
-              <div class="text-gray-500">Введите MD5 ключ: <span class="text-brand-400">MySecretKey</span></div>
-            </div>
-
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Формируемые команды:</p>
-            <div class="rounded-lg bg-gray-50 dark:bg-white/[0.03] p-4 code-block text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10">
-              interface VlanX<br/>
-              &nbsp;no standby &lt;group&gt;<br/>
-              &nbsp;vrrp &lt;group&gt; ip &lt;VIP&gt;<br/>
-              &nbsp;vrrp &lt;group&gt; preempt delay minimum 180<br/>
-              &nbsp;vrrp &lt;group&gt; priority 110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 105 для standby</span><br/>
-              &nbsp;vrrp &lt;group&gt; track &lt;...&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! если был track в HSRP</span><br/>
-              &nbsp;vrrp &lt;group&gt; authentication ...&nbsp;&nbsp;<span class="text-gray-400">! если выбрана</span><br/>
-              &nbsp;ip ospf cost 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 10 для standby</span>
-            </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Применяется на уже мигрированном VLAN. Обратный порядок: сначала standby, затем active.</p>
+          <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs overflow-x-auto mb-3">
+            interface VlanX<br/>
+            &nbsp;no vrrp &lt;group&gt; ip &lt;VIP&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">! v2</span><br/>
+            &nbsp;<span class="text-gray-500">! или</span><br/>
+            &nbsp;no vrrp &lt;group&gt; address-family ipv4&nbsp;<span class="text-gray-500">! v3</span><br/>
+            &nbsp;standby &lt;group&gt; ip &lt;VIP&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">! вернуть HSRP</span><br/>
+            &nbsp;standby &lt;group&gt; priority &lt;исх&gt;<br/>
+            &nbsp;ip ospf cost &lt;исходный&gt;
           </div>
+          <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Критерии обязательного отката:</p>
+          <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
+            <li>VIP недоступен &gt; 60 сек после стабилизации preempt</li>
+            <li>Track-объекты Down &gt; 5 минут</li>
+            <li>OSPF-соседство не восстанавливается</li>
+            <li>Потери через VIP &gt; 1% в течение 5 минут</li>
+          </ul>
         </div>
-
-        <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
-          <div class="px-6 py-5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-cyan-50 dark:bg-cyan-500/10 flex items-center justify-center">
-                <iconify-icon icon="mdi:flash" class="text-xl text-cyan-600 dark:text-cyan-400"></iconify-icon>
-              </div>
-              <div>
-                <h3 class="font-bold">VRRPv3</h3>
-                <p class="text-xs text-gray-500">migrate_to_vrrp3.py</p>
-              </div>
-            </div>
-            <span class="badge-shield bg-cyan-50 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/20">Без аутентификации</span>
-          </div>
-          <div class="p-5">
-            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-4 code-block text-gray-300 text-xs mb-5 overflow-x-auto">
-              <div><span class="text-emerald-400">$</span> python3 migrate_to_vrrp3.py core1.txt core2.txt</div>
-              <div class="mt-3 text-gray-500"># Поочередный перевод HSRP -&gt; VRRPv3</div>
-              <div class="text-gray-500">fhrp version vrrp v3</div>
-              <div class="text-brand-400 mt-1"># ========== Vlan2 (group 2) ==========</div>
-              <div class="text-gray-500"># --- Standby core (core2.txt) ---</div>
-              <div class="text-gray-100">interface Vlan2</div>
-              <div class="text-gray-100 pl-2">no standby 2</div>
-              <div class="text-gray-100 pl-2">vrrp 2 address-family ipv4</div>
-              <div class="text-gray-100 pl-4">address 10.80.68.1 primary</div>
-              <div class="text-gray-100 pl-4">priority 105</div>
-              <div class="text-gray-100 pl-4">timers advertise 5000</div>
-              <div class="text-gray-100 pl-4">track 1 decrement 20</div>
-              <div class="text-gray-100 pl-4">preempt delay minimum 180</div>
-              <div class="text-gray-100 pl-2">exit</div>
-              <div class="text-gray-100 pl-2">ip ospf cost 10</div>
-            </div>
-
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Формируемые команды:</p>
-            <div class="rounded-lg bg-gray-50 dark:bg-white/[0.03] p-4 code-block text-xs text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10">
-              fhrp version vrrp v3<br/>
-              !<br/>
-              interface VlanX<br/>
-              &nbsp;no standby &lt;group&gt;<br/>
-              &nbsp;vrrp &lt;group&gt; address-family ipv4<br/>
-              &nbsp;&nbsp;address &lt;VIP&gt; primary<br/>
-              &nbsp;&nbsp;priority 110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 105 для standby</span><br/>
-              &nbsp;&nbsp;timers advertise 5000<br/>
-              &nbsp;&nbsp;track &lt;...&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! если был track в HSRP</span><br/>
-              &nbsp;&nbsp;preempt delay minimum 180<br/>
-              &nbsp;exit<br/>
-              &nbsp;ip ospf cost 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400">! 10 для standby</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-8 p-6 rounded-2xl bg-gradient-to-br from-brand-50 to-violet-50 dark:from-brand-500/5 dark:to-violet-500/5 border border-brand-100 dark:border-brand-500/20">
-        <h3 class="font-bold text-lg mb-5 text-center flex items-center justify-center gap-2">
-          <iconify-icon icon="mdi:refresh" class="text-xl text-brand-600 dark:text-brand-400"></iconify-icon>
-          Порядок применения
-        </h3>
-        <div class="grid sm:grid-cols-4 gap-3">
-          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
-            <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 font-bold flex items-center justify-center mx-auto mb-3">1</div>
-            <div class="text-sm font-semibold">Блок Standby-ядра</div>
-          </div>
-          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
-            <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-500/15 flex items-center justify-center mx-auto mb-3">
-              <iconify-icon icon="mdi:magnify" class="text-xl text-blue-600 dark:text-blue-400"></iconify-icon>
-            </div>
-            <div class="text-sm font-semibold">Проверка: <code class="text-xs font-mono">show vrrp brief</code></div>
-          </div>
-          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
-            <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 font-bold flex items-center justify-center mx-auto mb-3">3</div>
-            <div class="text-sm font-semibold">Блок Active-ядра</div>
-          </div>
-          <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-brand-100 dark:border-white/10 text-center">
-            <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-500/15 flex items-center justify-center mx-auto mb-3">
-              <iconify-icon icon="mdi:check-circle" class="text-xl text-emerald-600 dark:text-emerald-400"></iconify-icon>
-            </div>
-            <div class="text-sm font-semibold">Проверка: <code class="text-xs font-mono">show vrrp / ping VIP</code></div>
-          </div>
-        </div>
-        <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">Только после успешной проверки переходите к следующему VLAN.</p>
       </div>
     </div>
   </section>
 
   <!-- ============ EXAMPLE ============ -->
-  <section id="example" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+  <section id="example" class="py-14 md:py-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <div class="sec-icon mx-auto mb-4">
@@ -763,7 +629,7 @@ interface Vlan2
   </section>
 
   <!-- ============ STRUCTURE ============ -->
-  <section id="structure" class="py-14 md:py-20">
+  <section id="structure" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <div class="sec-icon mx-auto mb-4">
@@ -774,10 +640,10 @@ interface Vlan2
       <div class="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-900 dark:bg-black/60 overflow-hidden shadow-xl">
         <pre class="p-5 code-block text-gray-300 overflow-x-auto"><code>hsrp2vrrp/
 ├── <span class="text-brand-400">hsrp2vrrp.py</span>                   <span class="text-gray-500"># Универсальный лаунчер (меню выбора)</span>
-├── <span class="text-brand-400">migrate_to_vrrp2.py</span>          <span class="text-gray-500"># Скрипт для VRRPv2</span>
-├── <span class="text-brand-400">migrate_to_vrrp3.py</span>          <span class="text-gray-500"># Скрипт для VRRPv3</span>
-├── <span class="text-gray-100">core1.txt</span>                    <span class="text-gray-500"># Пример конфига первого ядра</span>
-├── <span class="text-gray-100">core2.txt</span>                    <span class="text-gray-500"># Пример конфига второго ядра</span>
+├── <span class="text-brand-400">migrate_to_vrrp2.py</span>          <span class="text-gray-500"># Генератор команд VRRPv2</span>
+├── <span class="text-brand-400">migrate_to_vrrp3.py</span>          <span class="text-gray-500"># Генератор команд VRRPv3</span>
+├── <span class="text-gray-100">core1.txt</span>                    <span class="text-gray-500"># Пример конфига ядра core1</span>
+├── <span class="text-gray-100">core2.txt</span>                    <span class="text-gray-500"># Пример конфига ядра core2</span>
 ├── <span class="text-emerald-400">migrate_vrrp2_sequential.cfg</span> <span class="text-gray-500"># Результат (генерируется)</span>
 ├── <span class="text-emerald-400">migrate_vrrp3_sequential.cfg</span> <span class="text-gray-500"># Результат (генерируется)</span>
 ├── <span class="text-gray-100">logo.png</span>                     <span class="text-gray-500"># Логотип проекта</span>
@@ -788,7 +654,7 @@ interface Vlan2
   </section>
 
   <!-- ============ WARNINGS ============ -->
-  <section id="warnings" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
+  <section id="warnings" class="py-14 md:py-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <div class="sec-icon mx-auto mb-4">
@@ -804,7 +670,8 @@ interface Vlan2
           </h3>
           <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
             <li>VRRPv2 поддерживает текстовую и MD5-аутентификацию.</li>
-            <li>VRRPv3 <strong>не поддерживает</strong> аутентификацию (RFC 5798).</li>
+            <li>VRRPv3 <strong>не поддерживает</strong> аутентификацию (RFC 5798). Компенсируйте ACL/сегментацией.</li>
+            <li>MD5 в VRRPv2 не защищает от перехвата — для критичных сегментов используйте ACL на <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">224.0.0.18</code>.</li>
           </ul>
         </div>
         <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-orange-500 border border-gray-200 dark:border-white/10">
@@ -812,42 +679,35 @@ interface Vlan2
             <iconify-icon icon="mdi:key-variant" class="text-xl text-orange-500"></iconify-icon>
             Ключи HSRP
           </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Скрипт для VRRPv2 <strong>игнорирует</strong> исходные ключи HSRP и использует единый ключ, введённый вручную.</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Скрипт для VRRPv2 <strong>игнорирует</strong> исходные ключи HSRP и использует единый ключ, введённый вручную. Длина MD5-ключа до 20 символов.</p>
         </div>
         <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-yellow-500 border border-gray-200 dark:border-white/10">
           <h3 class="font-bold mb-2 flex items-center gap-2">
             <iconify-icon icon="mdi:fingerprint" class="text-xl text-yellow-500"></iconify-icon>
             Виртуальный MAC
           </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">VRRP использует MAC <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">0000.5e00.01xx</code>, отличный от HSRP. Возможен кратковременный разрыв.</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">VRRP использует <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">0000.5e00.01xx</code> (HSRP — <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">0000.0c07.acXX</code>). Возможен кратковременный разрыв. На коммутаторах с port-security/sticky MAC проверьте политику заранее.</p>
         </div>
         <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-emerald-500 border border-gray-200 dark:border-white/10">
           <h3 class="font-bold mb-2 flex items-center gap-2">
             <iconify-icon icon="mdi:target" class="text-xl text-emerald-500"></iconify-icon>
             Track-объекты
           </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Track-и переносятся в VRRP <strong>в том же блоке группы</strong>. Поддерживаются object-tracking (<code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">track 1 decrement 20</code>) и interface-tracking (<code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">track GigabitEthernet0/0 10</code>).</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Track-и переносятся в VRRP <strong>в том же блоке группы</strong>. <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">track</code> не создаёт объект — ссылается на существующий IP SLA / interface. Проверьте, что decrement аналогичен исходному.</p>
         </div>
         <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-blue-500 border border-gray-200 dark:border-white/10">
           <h3 class="font-bold mb-2 flex items-center gap-2">
             <iconify-icon icon="mdi:routes" class="text-xl text-blue-500"></iconify-icon>
-            OSPF cost
+            OSPF cost и preempt delay
           </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">По умолчанию: <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">1</code> для active, <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">10</code> для standby.</p>
-        </div>
-        <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-violet-500 border border-gray-200 dark:border-white/10">
-          <h3 class="font-bold mb-2 flex items-center gap-2">
-            <iconify-icon icon="mdi:clock-outline" class="text-xl text-violet-500"></iconify-icon>
-            Preempt delay
-          </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Задержка <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">180</code> секунд для предотвращения частых переключений.</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">OSPF cost: <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">1</code> / <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">10</code>. Preempt delay <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">180</code> сек. Для быстрого DC можно уменьшить до <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">30–60</code>, для WAN — увеличить до <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">300–600</code>.</p>
         </div>
         <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-brand-500 border border-gray-200 dark:border-white/10">
           <h3 class="font-bold mb-2 flex items-center gap-2">
             <iconify-icon icon="mdi:menu-open" class="text-xl text-brand-500"></iconify-icon>
             Расположение лаунчера
           </h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400"><code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">hsrp2vrrp.py</code> ищет скрипты миграции <strong>рядом с собой</strong> (и в <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">PATH</code>). Держите все три скрипта в одной папке.</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400"><code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">hsrp2vrrp.py</code> ищет скрипты миграции <strong>рядом с собой</strong> и в <code class="text-xs bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded font-mono">PATH</code>. Держите все три скрипта в одной папке.</p>
         </div>
         <div class="p-5 rounded-xl bg-white dark:bg-white/[0.02] border-l-4 border-l-gray-500 border border-gray-200 dark:border-white/10">
           <h3 class="font-bold mb-2 flex items-center gap-2">
@@ -861,7 +721,7 @@ interface Vlan2
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section id="faq" class="py-14 md:py-20">
+  <section id="faq" class="py-14 md:py-20 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-200/60 dark:border-white/10">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <div class="sec-icon mx-auto mb-4">
@@ -887,7 +747,7 @@ interface Vlan2
             <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
           </summary>
           <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            Лаунчер <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">hsrp2vrrp.py</code> — удобная обёртка: выводит баннер, проверяет наличие конфигов и скриптов, показывает меню и запускает нужный скрипт через <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">subprocess</code>. Прямой запуск работает так же, но без проверки и меню. Функционально результат идентичен.
+            Лаунчер <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">hsrp2vrrp.py</code> валидирует конфиги и скрипты, показывает меню, запускает нужный скрипт через <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">subprocess</code> и возвращает управление. Прямой запуск работает так же, но без проверок и меню. Результат генерации идентичен.
           </div>
         </details>
 
@@ -913,99 +773,11 @@ interface Vlan2
             <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
           </summary>
           <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            Скрипт <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_to_vrrp2.py</code> игнорирует исходные ключи HSRP. Вы вводите единый ключ вручную, и он применяется к обоим ядрам.
+            Скрипт <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">migrate_to_vrrp2.py</code> игнорирует исходные ключи HSRP. Вы вводите единый ключ, и он применяется к обоим ядрам.
           </div>
         </details>
 
         <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
           <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
             <span class="font-semibold text-sm pr-4">Почему в VRRPv3 нет аутентификации?</span>
-            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            Протокол VRRPv3 (RFC 5798) не предусматривает механизмов аутентификации. Если аутентификация обязательна — используйте VRRPv2.
-          </div>
-        </details>
-
-        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
-          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-            <span class="font-semibold text-sm pr-4">Как переносятся track-и?</span>
-            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            <p class="mb-3">Скрипт находит строки <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">standby &lt;group&gt; track ...</code> и сохраняет всё, что идёт после <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">track</code>. При генерации VRRP:</p>
-            <ul class="list-disc list-inside space-y-1 mb-3">
-              <li><strong>VRRPv2:</strong> <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">vrrp &lt;group&gt; track &lt;...&gt;</code></li>
-              <li><strong>VRRPv3:</strong> <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">track &lt;...&gt;</code> внутри <code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">address-family ipv4</code></li>
-            </ul>
-            <p>Поддерживаются object-tracking (<code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">track 1 decrement 20</code>) и interface-tracking (<code class="text-xs font-mono bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded">track GigabitEthernet0/0 10</code>).</p>
-          </div>
-        </details>
-
-        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
-          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-            <span class="font-semibold text-sm pr-4">Как определить, какое ядро active, а какое standby?</span>
-            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            Скрипт сравнивает приоритеты HSRP. Выше приоритет — active. При равенстве — больше IP = active.
-          </div>
-        </details>
-
-        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
-          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-            <span class="font-semibold text-sm pr-4">Можно ли применить всё сразу, не по одному VLAN?</span>
-            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            Технически можно, но это приведёт к длительному разрыву на всех сегментах одновременно. Рекомендуется применять <strong>поочерёдно</strong>.
-          </div>
-        </details>
-
-        <details class="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden">
-          <summary class="flex items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-            <span class="font-semibold text-sm pr-4">Как сделать скрипты исполняемыми?</span>
-            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg>
-          </summary>
-          <div class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
-            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs mb-3">
-              chmod +x hsrp2vrrp.py migrate_to_vrrp2.py migrate_to_vrrp3.py
-            </div>
-            <p class="mb-3">Затем:</p>
-            <div class="rounded-lg bg-gray-900 dark:bg-black/60 p-3 code-block text-gray-300 text-xs">./hsrp2vrrp.py</div>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="border-t border-gray-200/60 dark:border-white/10 py-8">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <img src="logo.png" alt="hsrp2vrrp" class="brand-logo-sm" />
-          <span class="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1.5">
-            <iconify-icon icon="mdi:license" class="text-sm"></iconify-icon>
-            MIT License
-          </span>
-        </div>
-        <div class="flex items-center gap-5 text-sm text-gray-500 dark:text-gray-400">
-          <a href="https://github.com/landev-ru/hsrp2vrrp" target="_blank" rel="noopener" class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
-          <a href="https://github.com/landev-ru/hsrp2vrrp/issues" target="_blank" rel="noopener" class="hover:text-gray-900 dark:hover:text-white transition-colors">Issues</a>
-          <a href="https://github.com/landev-ru/hsrp2vrrp/blob/main/LICENSE" target="_blank" rel="noopener" class="hover:text-gray-900 dark:hover:text-white transition-colors">License</a>
-        </div>
-      </div>
-      <p class="mt-5 text-xs text-center text-gray-400 dark:text-gray-500">
-        Скрипты предоставляются «как есть». Всегда тестируйте на стенде перед применением в production.
-      </p>
-      <p class="mt-2 text-xs text-center text-gray-400 dark:text-gray-500 flex items-center justify-center gap-1.5">
-        Сделано с
-        <iconify-icon icon="mdi:heart" class="text-sm text-rose-500"></iconify-icon>
-        для сетевых инженеров
-      </p>
-    </div>
-  </footer>
-
-</body>
-</html>
+            <svg class="chev w-5 h-5 text-gray-400 flex-shrink-0" fill="none" viewBox="0
