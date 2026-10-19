@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# migrate_to_vrrp2.py
+# migrate_to_vrrp2
+
 import re
 import sys
 
